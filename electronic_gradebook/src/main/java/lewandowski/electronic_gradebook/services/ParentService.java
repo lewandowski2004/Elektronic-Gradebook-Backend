@@ -1,10 +1,12 @@
 package lewandowski.electronic_gradebook.services;
 
 
-import com.lewandowski.electronicgradebook.dto.ParentDto;
-import com.lewandowski.electronicgradebook.model.*;
-import com.lewandowski.electronicgradebook.repository.ParentRepository;
-import com.lewandowski.electronicgradebook.repository.RoleRepository;
+import lewandowski.electronic_gradebook.dto.ParentDto;
+import lewandowski.electronic_gradebook.model.Parent;
+import lewandowski.electronic_gradebook.model.Role;
+import lewandowski.electronic_gradebook.model.RoleName;
+import lewandowski.electronic_gradebook.repository.ParentRepository;
+import lewandowski.electronic_gradebook.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
