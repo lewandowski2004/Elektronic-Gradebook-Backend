@@ -1,11 +1,11 @@
 package lewandowski.electronic_gradebook.security;
 
-import com.lewandowski.electronicgradebook.model.Employee;
-import com.lewandowski.electronicgradebook.model.Parent;
-import com.lewandowski.electronicgradebook.model.Pupil;
-import com.lewandowski.electronicgradebook.repository.EmployeeRepository;
-import com.lewandowski.electronicgradebook.repository.ParentRepository;
-import com.lewandowski.electronicgradebook.repository.PupilRepository;
+import lewandowski.electronic_gradebook.model.Employee;
+import lewandowski.electronic_gradebook.model.Parent;
+import lewandowski.electronic_gradebook.model.Pupil;
+import lewandowski.electronic_gradebook.repository.EmployeeRepository;
+import lewandowski.electronic_gradebook.repository.ParentRepository;
+import lewandowski.electronic_gradebook.repository.PupilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
