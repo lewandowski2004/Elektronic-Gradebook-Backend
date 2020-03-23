@@ -1,8 +1,8 @@
 package lewandowski.electronic_gradebook.configuration;
 
-import com.lewandowski.electronicgradebook.security.CustomPupilDetailsService;
-import com.lewandowski.electronicgradebook.security.JwtAuthenticationEntryPoint;
-import com.lewandowski.electronicgradebook.security.JwtAuthenticationFilter;
+import lewandowski.electronic_gradebook.security.CustomPupilDetailsService;
+import lewandowski.electronic_gradebook.security.JwtAuthenticationEntryPoint;
+import lewandowski.electronic_gradebook.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
