@@ -1,9 +1,9 @@
 package lewandowski.electronic_gradebook.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lewandowski.electronicgradebook.model.Employee;
-import com.lewandowski.electronicgradebook.model.Parent;
-import com.lewandowski.electronicgradebook.model.Pupil;
+import lewandowski.electronic_gradebook.model.Employee;
+import lewandowski.electronic_gradebook.model.Parent;
+import lewandowski.electronic_gradebook.model.Pupil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
