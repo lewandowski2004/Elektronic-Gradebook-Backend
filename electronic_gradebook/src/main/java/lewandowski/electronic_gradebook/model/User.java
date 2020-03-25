@@ -34,6 +34,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Embedded
+    private Address address;
+
     @Column(name = "password")
     private String password;
 

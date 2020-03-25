@@ -3,6 +3,7 @@ package lewandowski.electronic_gradebook.model;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Embeddable
 public class Address {
 
     @NotNull
