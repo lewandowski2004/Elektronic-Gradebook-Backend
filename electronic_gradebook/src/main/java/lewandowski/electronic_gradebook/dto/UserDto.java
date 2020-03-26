@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
@@ -20,10 +22,16 @@ public class UserDto {
 
     private UUID id;
 
+    @NotEmpty(message = "Pole nie może być puste")
+    @Size(max = 50)
     private String name;
 
+    @NotEmpty(message = "Pole nie może być puste")
+    @Size(max = 50)
     private String lastName;
 
+    @NotEmpty(message = "Pole nie może być puste")
+    @Size(max = 50)
     private String username;
 
     @NotEmpty(message = "Pole nie może być puste")
@@ -31,14 +39,28 @@ public class UserDto {
     private String email;
 
     @NotEmpty(message = "Pole nie może być puste")
+    @Size(max = 100)
+    @Column(name = "address_line_1")
+    private String addressLine1;
+
+    @Size(max = 100)
+    @Column(name = "address_line_2")
+    private String addressLine2;
+
+    @NotEmpty(message = "Pole nie może być puste")
+    @Size(max = 100)
+    @Column(name = "city")
+    private String city;
+
+    @NotEmpty(message = "Pole nie może być puste")
+    @Pattern(regexp = "\\d{2}-\\d{3}", message = "Podaj poprawny kod pocztowy!")
+    @Column(name = "zip_code")
+    private String zipCode;
+
+    @NotEmpty(message = "Pole nie może być puste")
     @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\\!\\@\\#\\$\\*])(?!.*\\s).{8,12}$",
             message = "Hasło powinno zawierać dużą i małą literę, cyfrę oraz jeden ze znaków !, @, #, $.")
     private String password;
-
-    /*@NotEmpty(message = "Pole nie może być puste")*/
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\\!\\@\\#\\$\\*])(?!.*\\s).{8,12}$",
-            message = "Hasło powinno zawierać dużą i małą literę, cyfrę oraz jeden ze znaków !, @, #, $.")
-    private String confirmPassword;
 
     private Date dateOfAddition;
 
@@ -51,10 +73,6 @@ public class UserDto {
     private Role role;
 
     private int nrRoli;
-
-    private String newPassword;
-
-    private String oldPassword;
 
     public UserDto(){}
 
