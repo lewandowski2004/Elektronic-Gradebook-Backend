@@ -2,6 +2,8 @@ package lewandowski.electronic_gradebook.services;
 
 
 import lewandowski.electronic_gradebook.dto.ParentDto;
+import lewandowski.electronic_gradebook.dto.ParentDtoToSave;
+import lewandowski.electronic_gradebook.model.Address;
 import lewandowski.electronic_gradebook.model.Parent;
 import lewandowski.electronic_gradebook.model.Role;
 import lewandowski.electronic_gradebook.model.RoleName;
@@ -30,17 +32,24 @@ public class ParentService {
     @Autowired
     PasswordEncoder encoder;
 
-    public void saveParentDto(ParentDto parentDto) {
+    public void saveParentDto(ParentDtoToSave parentDto) {
         Set<Role> roles = new HashSet<>();
         Role pupilRole = roleRepository.findByName(RoleName.ROLE_PARENT)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(pupilRole);
+        Address address = Address.builder()
+                .addressLine1(parentDto.getAddressLine1())
+                .addressLine2(parentDto.getAddressLine2())
+                .city(parentDto.getCity())
+                .zipCode(parentDto.getZipCode())
+                .build();
         Parent parent = Parent.builder()
                 .name(parentDto.getName())
                 .lastName(parentDto.getLastName())
                 .username(parentDto.getUsername())
                 .active(parentDto.getActive())
                 .email(parentDto.getEmail())
+                .address(address)
                 .password(encoder.encode(parentDto.getPassword()))
                 .role(pupilRole)
                 .build();
