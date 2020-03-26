@@ -86,7 +86,7 @@ public class SchoolAdministratorController {
     }
 
     @PostMapping("/register/employee")
-    public ResponseEntity<?> registerEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<?> registerEmployee(@Valid @RequestBody EmployeeDtoToSave employeeDto) {
         if (employeeRepository.existsByUsername(employeeDto.getUsername())) {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);

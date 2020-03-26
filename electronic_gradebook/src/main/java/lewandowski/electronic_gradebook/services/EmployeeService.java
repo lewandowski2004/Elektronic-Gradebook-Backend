@@ -2,6 +2,8 @@ package lewandowski.electronic_gradebook.services;
 
 
 import lewandowski.electronic_gradebook.dto.EmployeeDto;
+import lewandowski.electronic_gradebook.dto.EmployeeDtoToSave;
+import lewandowski.electronic_gradebook.model.Address;
 import lewandowski.electronic_gradebook.model.Employee;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
 import lewandowski.electronic_gradebook.repository.RoleRepository;
@@ -30,14 +32,20 @@ public class EmployeeService {
     @Autowired
     PasswordEncoder encoder;
 
-    public void saveEmployeeDto(EmployeeDto employeeDto) {
-
+    public void saveEmployeeDto(EmployeeDtoToSave employeeDto) {
+        Address address = Address.builder()
+                .addressLine1(employeeDto.getAddressLine1())
+                .addressLine2(employeeDto.getAddressLine2())
+                .city(employeeDto.getCity())
+                .zipCode(employeeDto.getZipCode())
+                .build();
         Employee employee = Employee.builder()
                 .name(employeeDto.getName())
                 .lastName(employeeDto.getLastName())
                 .username(employeeDto.getUsername())
                 .active(employeeDto.getActive())
                 .email(employeeDto.getEmail())
+                .address(address)
                 .password(encoder.encode(employeeDto.getPassword()))
                 .roles(roleService.findByIdIn(employeeDto.getRoles()))
                 .build();
