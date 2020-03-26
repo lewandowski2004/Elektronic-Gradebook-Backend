@@ -1,9 +1,6 @@
 package lewandowski.electronic_gradebook.controller;
 
-import lewandowski.electronic_gradebook.dto.EmployeeDto;
-import lewandowski.electronic_gradebook.dto.ParentDto;
-import lewandowski.electronic_gradebook.dto.ParentDtoToSave;
-import lewandowski.electronic_gradebook.dto.PupilDto;
+import lewandowski.electronic_gradebook.dto.*;
 import lewandowski.electronic_gradebook.payload.ApiResponse;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
 import lewandowski.electronic_gradebook.repository.ParentRepository;
@@ -47,7 +44,7 @@ public class SchoolAdministratorController {
 
 
     @PostMapping("/register/pupil")
-    public ResponseEntity<?> registerPupil(@Valid @RequestBody PupilDto pupilDto) {
+    public ResponseEntity<?> registerPupil(@Valid @RequestBody PupilDtoToSave pupilDto) {
         if (pupilRepository.existsByUsername(pupilDto.getUsername())) {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);

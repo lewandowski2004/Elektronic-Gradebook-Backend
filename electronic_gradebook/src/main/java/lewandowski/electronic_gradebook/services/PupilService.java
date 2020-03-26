@@ -2,6 +2,8 @@ package lewandowski.electronic_gradebook.services;
 
 
 import lewandowski.electronic_gradebook.dto.PupilDto;
+import lewandowski.electronic_gradebook.dto.PupilDtoToSave;
+import lewandowski.electronic_gradebook.model.Address;
 import lewandowski.electronic_gradebook.model.Pupil;
 import lewandowski.electronic_gradebook.model.Role;
 import lewandowski.electronic_gradebook.model.RoleName;
@@ -30,11 +32,17 @@ public class PupilService {
     @Autowired
     PasswordEncoder encoder;
 
-    public void savePupilDto(PupilDto pupilDto) {
+    public void savePupilDto(PupilDtoToSave pupilDto) {
         Set<Role> roles = new HashSet<>();
         Role pupilRole = roleRepository.findByName(RoleName.ROLE_PUPIL)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(pupilRole);
+        Address address = Address.builder()
+                .addressLine1(pupilDto.getAddressLine1())
+                .addressLine2(pupilDto.getAddressLine2())
+                .city(pupilDto.getCity())
+                .zipCode(pupilDto.getZipCode())
+                .build();
         Pupil pupil = Pupil.builder()
                 .name(pupilDto.getName())
                 .lastName(pupilDto.getLastName())
