@@ -49,6 +49,7 @@ public class PupilService {
                 .username(pupilDto.getUsername())
                 .active(pupilDto.getActive())
                 .email(pupilDto.getEmail())
+                .address(address)
                 .password(encoder.encode(pupilDto.getPassword()))
                 .role(pupilRole)
                 .build();
