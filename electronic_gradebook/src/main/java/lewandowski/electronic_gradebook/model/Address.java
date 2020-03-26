@@ -1,8 +1,14 @@
 package lewandowski.electronic_gradebook.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
 @Embeddable
 public class Address {
 
