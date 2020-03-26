@@ -3,12 +3,14 @@ package lewandowski.electronic_gradebook.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
 @Getter
 @Setter
@@ -37,7 +39,5 @@ public class Pupil extends User {
 
 /*    @OneToMany(mappedBy="pupil", fetch=FetchType.EAGER)
     private Set<SubjectCard> subjectCards;*/
-    public Pupil() {
 
-    }
 }

@@ -3,12 +3,14 @@ package lewandowski.electronic_gradebook.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
 @Getter
 @Setter
@@ -33,13 +35,5 @@ public class Parent extends User {
 
     /*@OneToMany(mappedBy = "parent", fetch= FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Pupil> pupils;*/
-
-    public Parent(){
-
-    }
-
-    public Parent(String name, String username, String email, String password) {
-        super(name, username, email, password);
-    }
 
 }

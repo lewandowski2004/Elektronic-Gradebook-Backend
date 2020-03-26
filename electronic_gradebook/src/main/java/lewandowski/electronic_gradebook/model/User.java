@@ -2,6 +2,7 @@ package lewandowski.electronic_gradebook.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
 @Getter
 @Setter
@@ -55,15 +57,4 @@ public class User {
     @Transient
     private String oldPassword;
 
-
-    public User(){
-
-    }
-
-    public User(String name, String username, String email, String password) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 }

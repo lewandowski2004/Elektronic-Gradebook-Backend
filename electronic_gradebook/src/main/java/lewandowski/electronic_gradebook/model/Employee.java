@@ -3,6 +3,7 @@ package lewandowski.electronic_gradebook.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
 @Getter
 @Setter
@@ -34,22 +36,4 @@ public class Employee extends User{
     @JoinColumn(name="school_id")
     private School school;
 
-    public Employee() {
-
-    }
-
-    public Employee(String name, String username, String email, String password) {
-        super(name, username, email, password);
-    }
-
-    /*public Employee(UUID id, String name, String lastName, String username, String email, String password,
-                   String confirmPassword, int active, int nrRoli, String newPassword, String oldPassword) {
-        super(id, name, lastName, username, email, password, confirmPassword, active, nrRoli, newPassword, oldPassword);
-    }
-
-    public Employee(UUID id, String name, String lastName, String username, String email, String password, String confirmPassword,
-                   int active, int nrRoli, String newPassword, String oldPassword, Set<Role> roles) {
-        super(id, name, lastName, username, email, password, confirmPassword, active, nrRoli, newPassword, oldPassword);
-        this.roles = roles;
-    }*/
 }

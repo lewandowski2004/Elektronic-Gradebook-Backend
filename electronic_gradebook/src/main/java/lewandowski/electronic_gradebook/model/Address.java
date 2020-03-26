@@ -4,11 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Embeddable
 public class Address {
 
