@@ -3,6 +3,7 @@ package lewandowski.electronic_gradebook.dto;
 import lewandowski.electronic_gradebook.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
@@ -15,6 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
 @Getter
 @Setter
@@ -74,12 +76,4 @@ public class UserDto {
 
     private int nrRoli;
 
-    public UserDto(){}
-
-    public UserDto(String name, String username, String email, String password) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 }
