@@ -7,7 +7,7 @@ import lewandowski.electronic_gradebook.payload.UserProfile;
 import lewandowski.electronic_gradebook.payload.UserSummary;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
 import lewandowski.electronic_gradebook.security.CurrentUser;
-import lewandowski.electronic_gradebook.security.PupilPrincipal;
+import lewandowski.electronic_gradebook.security.UserPrincipal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER') or hasRole('PUPIL') or hasRole('PARENT')")
-    public UserSummary getCurrent(@CurrentUser PupilPrincipal currentUser) {
+    public UserSummary getCurrent(@CurrentUser UserPrincipal currentUser) {
         UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName());
         return userSummary;
     }

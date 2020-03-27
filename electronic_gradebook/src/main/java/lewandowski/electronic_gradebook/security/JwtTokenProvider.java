@@ -24,13 +24,13 @@ public class JwtTokenProvider {
 
     public String generateToken(Authentication authentication) {
 
-        PupilPrincipal pupilPrincipal = (PupilPrincipal) authentication.getPrincipal();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(pupilPrincipal.getId().toString())
+                .setSubject(userPrincipal.getId().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

@@ -40,15 +40,15 @@ public class CustomPupilDetailsService implements UserDetailsService {
 
         if(pupilIsPresent){
             Pupil getPupil = pupilRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail).get();
-            return PupilPrincipal.createPupil(getPupil);
+            return UserPrincipal.createPupil(getPupil);
         }
         if(employeeIsPresent){
             Employee getEmployee = employeeRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail).get();
-            return PupilPrincipal.createEmployee(getEmployee);
+            return UserPrincipal.createEmployee(getEmployee);
         }
         if(parentIsPresent){
             Parent getParent = parentRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail).get();
-            return PupilPrincipal.createParent(getParent);
+            return UserPrincipal.createParent(getParent);
         }
         return null;
     }
@@ -62,15 +62,15 @@ public class CustomPupilDetailsService implements UserDetailsService {
 
         if(pupilIsPresent){
             Pupil getPupil = pupilRepository.findById(id).get();
-            return PupilPrincipal.createPupil(getPupil);
+            return UserPrincipal.createPupil(getPupil);
         }
         if(employeeIsPresent){
             Employee getEmployee = employeeRepository.findById(id).get();
-            return PupilPrincipal.createEmployee(getEmployee);
+            return UserPrincipal.createEmployee(getEmployee);
         }
         if(parentIsPresent){
             Parent getParent = parentRepository.findById(id).get();
-            return PupilPrincipal.createParent(getParent);
+            return UserPrincipal.createParent(getParent);
         }
         return null;
     }

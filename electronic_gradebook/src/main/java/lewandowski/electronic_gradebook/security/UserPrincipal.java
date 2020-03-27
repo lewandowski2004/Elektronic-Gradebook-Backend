@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class PupilPrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails {
     private UUID id;
 
     private String name;
@@ -30,7 +30,7 @@ public class PupilPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public PupilPrincipal(UUID id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(UUID id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -39,12 +39,12 @@ public class PupilPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static PupilPrincipal createEmployee(Employee employee) {
+    public static UserPrincipal createEmployee(Employee employee) {
         List<GrantedAuthority> authorities = employee.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName().name())
         ).collect(Collectors.toList());
 
-        return new PupilPrincipal(
+        return new UserPrincipal(
                 employee.getId(),
                 employee.getName(),
                 employee.getUsername(),
@@ -53,12 +53,12 @@ public class PupilPrincipal implements UserDetails {
                 authorities
         );
     }
-    public static PupilPrincipal createPupil(Pupil pupil) {
+    public static UserPrincipal createPupil(Pupil pupil) {
         List<GrantedAuthority> authorities = Collections.singletonList
                 (new SimpleGrantedAuthority(pupil.getRole().getName().name()));
 
 
-        return new PupilPrincipal(
+        return new UserPrincipal(
                 pupil.getId(),
                 pupil.getName(),
                 pupil.getUsername(),
@@ -67,11 +67,11 @@ public class PupilPrincipal implements UserDetails {
                 authorities
         );
     }
-    public static PupilPrincipal createParent(Parent parent) {
+    public static UserPrincipal createParent(Parent parent) {
         List<GrantedAuthority> authorities = Collections.singletonList
                 (new SimpleGrantedAuthority(parent.getRole().getName().name()));
 
-        return new PupilPrincipal(
+        return new UserPrincipal(
                 parent.getId(),
                 parent.getName(),
                 parent.getUsername(),
@@ -106,7 +106,7 @@ public class PupilPrincipal implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PupilPrincipal that = (PupilPrincipal) o;
+        UserPrincipal that = (UserPrincipal) o;
         return Objects.equals(id, that.id);
     }
 

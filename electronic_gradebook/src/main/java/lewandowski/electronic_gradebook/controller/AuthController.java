@@ -3,7 +3,7 @@ package lewandowski.electronic_gradebook.controller;
 import lewandowski.electronic_gradebook.payload.JwtResponse;
 import lewandowski.electronic_gradebook.payload.LoginRequest;
 import lewandowski.electronic_gradebook.security.JwtTokenProvider;
-import lewandowski.electronic_gradebook.security.PupilPrincipal;
+import lewandowski.electronic_gradebook.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,7 +46,7 @@ public class AuthController {
 
         String jwt = tokenProvider.generateToken(authentication);
 
-        PupilPrincipal userDetails = (PupilPrincipal) authentication.getPrincipal();
+        UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
