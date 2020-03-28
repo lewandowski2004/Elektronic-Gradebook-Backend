@@ -46,9 +46,6 @@ public class User {
     private int active;
 
     @Transient
-    private int nrRoli;
-
-    @Transient
     private String newPassword;
 
     @Transient
