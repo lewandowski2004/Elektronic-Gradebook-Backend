@@ -1,6 +1,7 @@
 package lewandowski.electronic_gradebook.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lewandowski.electronic_gradebook.dto.UserDto;
 import lewandowski.electronic_gradebook.model.Employee;
 import lewandowski.electronic_gradebook.model.Parent;
 import lewandowski.electronic_gradebook.model.Pupil;
@@ -10,32 +11,22 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class UserPrincipal implements UserDetails {
-    private UUID id;
-
-    private String name;
-
-    private String username;
-
-    @JsonIgnore
-    private String email;
-
-    @JsonIgnore
-    private String password;
+public class UserPrincipal extends UserDto implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(UUID id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
+    public UserPrincipal(UUID id, String name, String lastName, String username, String email, String addressLine1, String addressLine2,
+                         String city, String zipCode, String password, int active,
+                         Collection<? extends GrantedAuthority> authorities) {
+        super(id, name, lastName, username, email, addressLine1, addressLine2, city, zipCode, password, active);
         this.authorities = authorities;
     }
 
@@ -47,9 +38,15 @@ public class UserPrincipal implements UserDetails {
         return new UserPrincipal(
                 employee.getId(),
                 employee.getName(),
+                employee.getLastName(),
                 employee.getUsername(),
                 employee.getEmail(),
+                employee.getAddress().getAddressLine1(),
+                employee.getAddress().getAddressLine2(),
+                employee.getAddress().getCity(),
+                employee.getAddress().getZipCode(),
                 employee.getPassword(),
+                employee.getActive(),
                 authorities
         );
     }
@@ -57,16 +54,22 @@ public class UserPrincipal implements UserDetails {
         List<GrantedAuthority> authorities = Collections.singletonList
                 (new SimpleGrantedAuthority(pupil.getRole().getName().name()));
 
-
         return new UserPrincipal(
                 pupil.getId(),
                 pupil.getName(),
+                pupil.getLastName(),
                 pupil.getUsername(),
                 pupil.getEmail(),
+                pupil.getAddress().getAddressLine1(),
+                pupil.getAddress().getAddressLine2(),
+                pupil.getAddress().getCity(),
+                pupil.getAddress().getZipCode(),
                 pupil.getPassword(),
+                pupil.getActive(),
                 authorities
         );
     }
+
     public static UserPrincipal createParent(Parent parent) {
         List<GrantedAuthority> authorities = Collections.singletonList
                 (new SimpleGrantedAuthority(parent.getRole().getName().name()));
@@ -74,9 +77,15 @@ public class UserPrincipal implements UserDetails {
         return new UserPrincipal(
                 parent.getId(),
                 parent.getName(),
+                parent.getLastName(),
                 parent.getUsername(),
                 parent.getEmail(),
+                parent.getAddress().getAddressLine1(),
+                parent.getAddress().getAddressLine2(),
+                parent.getAddress().getCity(),
+                parent.getAddress().getZipCode(),
                 parent.getPassword(),
+                parent.getActive(),
                 authorities
         );
     }
@@ -102,7 +111,7 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -114,5 +123,5 @@ public class UserPrincipal implements UserDetails {
     public int hashCode() {
 
         return Objects.hash(id);
-    }
+    }*/
 }
