@@ -68,12 +68,6 @@ public class UserDto {
 
     private int active;
 
-    private Set<Long> roles;
-
-    private Set<RoleDto> roleDtos;
-
-    private Role role;
-
     private int nrRoli;
 
 }
