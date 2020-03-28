@@ -1,10 +1,7 @@
 package lewandowski.electronic_gradebook.dto;
 
 import lewandowski.electronic_gradebook.model.RoleName;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor

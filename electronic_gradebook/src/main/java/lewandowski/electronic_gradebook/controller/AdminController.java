@@ -1,6 +1,5 @@
 package lewandowski.electronic_gradebook.controller;
 
-import lewandowski.electronic_gradebook.dto.EmployeeDto;
 import lewandowski.electronic_gradebook.dto.EmployeeDtoToSave;
 import lewandowski.electronic_gradebook.payload.ApiResponse;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
@@ -16,10 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
