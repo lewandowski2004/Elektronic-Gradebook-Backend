@@ -2,7 +2,7 @@ package lewandowski.electronic_gradebook.services;
 
 
 import lewandowski.electronic_gradebook.dto.EmployeeDto;
-import lewandowski.electronic_gradebook.dto.EmployeeDtoToSave;
+import lewandowski.electronic_gradebook.dto._toSave.EmployeeDtoToSave;
 import lewandowski.electronic_gradebook.model.Address;
 import lewandowski.electronic_gradebook.model.Employee;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
