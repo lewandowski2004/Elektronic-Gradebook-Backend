@@ -76,7 +76,7 @@ public class ParentService {
                 .email(parentDto.getEmail())
                 .password(parentDto.getPassword())
                 .active(parentDto.getActive())
-                .role(parentDto.getRole())
+                .role(roleService.getRole(parentDto.getRoleDto()))
                 .build();
 
     }
@@ -99,7 +99,7 @@ public class ParentService {
                 .username(parent.getUsername())
                 .email(parent.getEmail())
                 .password(parent.getPassword())
-                .role(parent.getRole())
+                .roleDto(roleService.getRoleDto(parent.getRole()))
                 .build();
     }
 }

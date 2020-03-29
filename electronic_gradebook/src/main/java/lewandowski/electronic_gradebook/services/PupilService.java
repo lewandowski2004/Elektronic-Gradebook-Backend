@@ -76,7 +76,7 @@ public class PupilService {
                 .username(pupilDto.getUsername())
                 .email(pupilDto.getEmail())
                 .password(pupilDto.getPassword())
-                .role(pupilDto.getRole())
+                .role(roleService.getRole(pupilDto.getRoleDto()))
                 .build();
     }
 
@@ -97,7 +97,7 @@ public class PupilService {
                 .username(pupil.getUsername())
                 .email(pupil.getEmail())
                 .password(pupil.getPassword())
-                .role(pupil.getRole())
+                .roleDto(roleService.getRoleDto(pupil.getRole()))
                 .build();
     }
 }

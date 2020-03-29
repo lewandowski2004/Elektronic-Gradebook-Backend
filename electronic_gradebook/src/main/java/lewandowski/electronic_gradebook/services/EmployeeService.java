@@ -78,7 +78,7 @@ public class EmployeeService {
                 .email(employeeDto.getEmail())
                 .password(employeeDto.getPassword())
                 .active(employeeDto.getActive())
-                .roles(roleService.getRoles(employeeDto.getRoleDtos()))
+                .roles(roleService.getRoles(employeeDto.getRolesDto()))
                 .build();
 
     }
@@ -104,7 +104,7 @@ public class EmployeeService {
                 .username(employee.getUsername())
                 .email(employee.getEmail())
                 .password(employee.getPassword())
-                .roleDtos(roleService.getRolesDto(employee.getRoles()))
+                .rolesDto(roleService.getRolesDto(employee.getRoles()))
                 .build();
     }
 }
