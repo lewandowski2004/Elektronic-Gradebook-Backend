@@ -12,9 +12,11 @@ import javax.persistence.*;
 @Embeddable
 public class Address {
 
-    private String addressLine1;
+    private String street;
 
-    private String addressLine2;
+    private int buildingNumber;
+
+    private int apartmentNumber;
 
     private String city;
 
