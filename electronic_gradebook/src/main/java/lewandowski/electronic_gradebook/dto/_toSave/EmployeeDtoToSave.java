@@ -1,5 +1,6 @@
-package lewandowski.electronic_gradebook.dto;
+package lewandowski.electronic_gradebook.dto._toSave;
 
+import lewandowski.electronic_gradebook.dto.EmployeeDto;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

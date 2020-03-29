@@ -11,5 +11,5 @@ import lombok.experimental.SuperBuilder;
 @Setter
 public class PupilDto extends UserDto {
 
-    private Role role;
+    private RoleDto roleDto;
 }

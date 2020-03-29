@@ -12,6 +12,6 @@ import java.util.Set;
 @Setter
 public class EmployeeDto extends UserDto {
 
-    private Set<RoleDto> roleDtos;
+    private Set<RoleDto> rolesDto;
 
 }

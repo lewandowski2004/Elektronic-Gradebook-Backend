@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 @Getter
@@ -60,6 +59,21 @@ public class UserDto {
 
     private int active;
 
-    private int nrRoli;
+    //private int nrRoli;
 
+
+    public UserDto(UUID id, String name, String lastName, String username, String email, String addressLine1,
+                   String addressLine2, String city, String zipCode, String password, int active) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.zipCode = zipCode;
+        this.password = password;
+        this.active = active;
+    }
 }

@@ -4,6 +4,7 @@ import lewandowski.electronic_gradebook.model.Role;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
@@ -11,5 +12,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 public class ParentDto extends UserDto {
 
-    private Role role;
+    private RoleDto roleDto;
+
 }

@@ -1,5 +1,6 @@
-package lewandowski.electronic_gradebook.dto;
+package lewandowski.electronic_gradebook.dto._toSave;
 
+import lewandowski.electronic_gradebook.dto.ParentDto;
 import lewandowski.electronic_gradebook.model.Role;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -9,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Getter
 @Setter
-public class ParentDtoToSave extends ParentDto{
+public class ParentDtoToSave extends ParentDto {
 
     private Role role;
 }
