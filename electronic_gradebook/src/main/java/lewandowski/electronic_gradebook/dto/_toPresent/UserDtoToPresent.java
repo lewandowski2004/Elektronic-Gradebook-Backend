@@ -15,9 +15,10 @@ public class UserDtoToPresent extends UserDto {
 
     private RoleDto roleDto;
 
-    public UserDtoToPresent(String name, String lastName, String username, String email, String addressLine1,
-                            String addressLine2, String city, String zipCode, RoleDto roleDto) {
-        super(name, lastName, username, email, addressLine1, addressLine2, city, zipCode);
+    public UserDtoToPresent(String name, String lastName, String username, String email, String street,
+                            int buildingNumber, int apartmentNumber, String city, String zipCode,
+                            RoleDto roleDto) {
+        super(name, lastName, username, email, street, buildingNumber, apartmentNumber, city, zipCode);
         this.roleDto = roleDto;
     }
 }

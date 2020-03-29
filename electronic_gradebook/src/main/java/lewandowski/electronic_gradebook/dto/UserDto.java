@@ -31,14 +31,16 @@ public class UserDto {
     @Pattern(regexp = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$", message = "Podaj poprawny email!")
     private String email;
 
-    @NotEmpty(message = "Pole nie może być puste")
     @Size(max = 100)
-    @Column(name = "address_line_1")
-    private String addressLine1;
+    @Column(name = "street")
+    private String street;
 
-    @Size(max = 100)
-    @Column(name = "address_line_2")
-    private String addressLine2;
+    @NotNull(message = "Pole nie może być puste")
+    @Column(name = "building_number")
+    private int buildingNumber;
+
+    @Column(name = "apartment_number")
+    private int apartmentNumber;
 
     @NotEmpty(message = "Pole nie może być puste")
     @Size(max = 100)
@@ -59,21 +61,33 @@ public class UserDto {
 
     private int active;
 
-    //private int nrRoli;
 
-
-    public UserDto(UUID id, String name, String lastName, String username, String email, String addressLine1,
-                   String addressLine2, String city, String zipCode, String password, int active) {
+    public UserDto(UUID id, String name, String lastName, String username, String email,String street, int buildingNumber,
+                   int apartmentNumber, String city, String zipCode, String password, int active) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
-        this.addressLine1 = addressLine1;
-        this.addressLine2 = addressLine2;
+        this.street = street;
+        this.buildingNumber = buildingNumber;
+        this.apartmentNumber = apartmentNumber;
         this.city = city;
         this.zipCode = zipCode;
         this.password = password;
         this.active = active;
+    }
+
+    public UserDto(String name, String lastName, String username, String email, String street, int buildingNumber,
+                   int apartmentNumber, String city, String zipCode) {
+        this.name = name;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.street = street;
+        this.buildingNumber = buildingNumber;
+        this.apartmentNumber = apartmentNumber;
+        this.city = city;
+        this.zipCode = zipCode;
     }
 }
