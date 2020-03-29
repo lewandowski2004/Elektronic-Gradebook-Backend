@@ -69,18 +69,25 @@ public class ParentService {
     }
 
     public Parent getParent(ParentDto parentDto) {
+        Address address = Address.builder()
+                .addressLine1(parentDto.getAddressLine1())
+                .addressLine2(parentDto.getAddressLine2())
+                .city(parentDto.getCity())
+                .zipCode(parentDto.getZipCode())
+                .build();
         return Parent.builder()
                 .id(parentDto.getId())
                 .name(parentDto.getName())
                 .lastName(parentDto.getLastName())
+                .username(parentDto.getUsername())
                 .email(parentDto.getEmail())
+                .address(address)
                 .password(parentDto.getPassword())
                 .active(parentDto.getActive())
                 .role(roleService.getRole(parentDto.getRoleDto()))
                 .build();
 
     }
-
 
     public List<ParentDto> findAllParentsDtoList(List<Parent> parentList) {
         List<ParentDto> parentDtoList = new ArrayList<>();
@@ -98,6 +105,10 @@ public class ParentService {
                 .lastName(parent.getLastName())
                 .username(parent.getUsername())
                 .email(parent.getEmail())
+                .addressLine1(parent.getAddress().getAddressLine1())
+                .addressLine2(parent.getAddress().getAddressLine2())
+                .city(parent.getAddress().getCity())
+                .zipCode(parent.getAddress().getZipCode())
                 .password(parent.getPassword())
                 .roleDto(roleService.getRoleDto(parent.getRole()))
                 .build();
