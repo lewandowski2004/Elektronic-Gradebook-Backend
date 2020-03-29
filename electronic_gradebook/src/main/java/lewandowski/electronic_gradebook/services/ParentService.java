@@ -38,8 +38,9 @@ public class ParentService {
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(pupilRole);
         Address address = Address.builder()
-                .addressLine1(parentDto.getAddressLine1())
-                .addressLine2(parentDto.getAddressLine2())
+                .street(parentDto.getStreet())
+                .buildingNumber(parentDto.getBuildingNumber())
+                .apartmentNumber(parentDto.getApartmentNumber())
                 .city(parentDto.getCity())
                 .zipCode(parentDto.getZipCode())
                 .build();
@@ -70,8 +71,9 @@ public class ParentService {
 
     public Parent getParent(ParentDto parentDto) {
         Address address = Address.builder()
-                .addressLine1(parentDto.getAddressLine1())
-                .addressLine2(parentDto.getAddressLine2())
+                .street(parentDto.getStreet())
+                .buildingNumber(parentDto.getBuildingNumber())
+                .apartmentNumber(parentDto.getApartmentNumber())
                 .city(parentDto.getCity())
                 .zipCode(parentDto.getZipCode())
                 .build();
@@ -105,8 +107,9 @@ public class ParentService {
                 .lastName(parent.getLastName())
                 .username(parent.getUsername())
                 .email(parent.getEmail())
-                .addressLine1(parent.getAddress().getAddressLine1())
-                .addressLine2(parent.getAddress().getAddressLine2())
+                .street(parent.getAddress().getStreet())
+                .buildingNumber(parent.getAddress().getBuildingNumber())
+                .apartmentNumber(parent.getAddress().getApartmentNumber())
                 .city(parent.getAddress().getCity())
                 .zipCode(parent.getAddress().getZipCode())
                 .password(parent.getPassword())

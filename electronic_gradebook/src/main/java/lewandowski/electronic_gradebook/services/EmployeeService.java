@@ -34,8 +34,9 @@ public class EmployeeService {
 
     public void saveEmployeeDto(EmployeeDtoToSave employeeDto) {
         Address address = Address.builder()
-                .addressLine1(employeeDto.getAddressLine1())
-                .addressLine2(employeeDto.getAddressLine2())
+                .street(employeeDto.getStreet())
+                .buildingNumber(employeeDto.getBuildingNumber())
+                .apartmentNumber(employeeDto.getApartmentNumber())
                 .city(employeeDto.getCity())
                 .zipCode(employeeDto.getZipCode())
                 .build();

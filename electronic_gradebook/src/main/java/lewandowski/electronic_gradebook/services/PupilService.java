@@ -38,8 +38,9 @@ public class PupilService {
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(pupilRole);
         Address address = Address.builder()
-                .addressLine1(pupilDto.getAddressLine1())
-                .addressLine2(pupilDto.getAddressLine2())
+                .street(pupilDto.getStreet())
+                .buildingNumber(pupilDto.getBuildingNumber())
+                .apartmentNumber(pupilDto.getApartmentNumber())
                 .city(pupilDto.getCity())
                 .zipCode(pupilDto.getZipCode())
                 .build();
