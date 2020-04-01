@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,13 +40,20 @@ public class EmployeeService {
                 .apartmentNumber(employeeDto.getApartmentNumber())
                 .city(employeeDto.getCity())
                 .zipCode(employeeDto.getZipCode())
+                .country(employeeDto.getCountry())
                 .build();
         Employee employee = Employee.builder()
                 .name(employeeDto.getName())
+                .secondName(employeeDto.getSecondName())
                 .lastName(employeeDto.getLastName())
+                .pesel(employeeDto.getPesel())
+                .dateOfBirth(employeeDto.getDateOfBirth())
+                .dateOfAddition(new Date())
+                .phoneNumber(employeeDto.getPhoneNumber())
                 .username(employeeDto.getUsername())
                 .active(employeeDto.getActive())
                 .email(employeeDto.getEmail())
+                .gender(employeeDto.getGender())
                 .address(address)
                 .password(encoder.encode(employeeDto.getPassword()))
                 .roles(roleService.findByIdIn(employeeDto.getRoles()))

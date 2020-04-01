@@ -6,7 +6,7 @@ import lewandowski.electronic_gradebook.dto._toSave.PupilDtoToSave;
 import lewandowski.electronic_gradebook.model.Address;
 import lewandowski.electronic_gradebook.model.Pupil;
 import lewandowski.electronic_gradebook.model.Role;
-import lewandowski.electronic_gradebook.model.RoleName;
+import lewandowski.electronic_gradebook.model.enums.RoleName;
 import lewandowski.electronic_gradebook.repository.PupilRepository;
 import lewandowski.electronic_gradebook.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +43,22 @@ public class PupilService {
                 .apartmentNumber(pupilDto.getApartmentNumber())
                 .city(pupilDto.getCity())
                 .zipCode(pupilDto.getZipCode())
+                .country(pupilDto.getCountry())
                 .build();
         Pupil pupil = Pupil.builder()
                 .name(pupilDto.getName())
+                .secondName(pupilDto.getSecondName())
                 .lastName(pupilDto.getLastName())
+                .pesel(pupilDto.getPesel())
+                .dateOfBirth(pupilDto.getDateOfBirth())
+                .dateOfAddition(new Date())
+                .phoneNumber(pupilDto.getPhoneNumber())
                 .username(pupilDto.getUsername())
                 .active(pupilDto.getActive())
                 .email(pupilDto.getEmail())
+                .gender(pupilDto.getGender())
+                .motherName(pupilDto.getMotherName())
+                .fatherName(pupilDto.getFatherName())
                 .address(address)
                 .password(encoder.encode(pupilDto.getPassword()))
                 .role(pupilRole)

@@ -6,7 +6,7 @@ import lewandowski.electronic_gradebook.dto._toSave.ParentDtoToSave;
 import lewandowski.electronic_gradebook.model.Address;
 import lewandowski.electronic_gradebook.model.Parent;
 import lewandowski.electronic_gradebook.model.Role;
-import lewandowski.electronic_gradebook.model.RoleName;
+import lewandowski.electronic_gradebook.model.enums.RoleName;
 import lewandowski.electronic_gradebook.repository.ParentRepository;
 import lewandowski.electronic_gradebook.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +43,20 @@ public class ParentService {
                 .apartmentNumber(parentDto.getApartmentNumber())
                 .city(parentDto.getCity())
                 .zipCode(parentDto.getZipCode())
+                .country(parentDto.getCountry())
                 .build();
         Parent parent = Parent.builder()
                 .name(parentDto.getName())
+                .secondName(parentDto.getSecondName())
                 .lastName(parentDto.getLastName())
+                .pesel(parentDto.getPesel())
+                .dateOfBirth(parentDto.getDateOfBirth())
+                .dateOfAddition(new Date())
+                .phoneNumber(parentDto.getPhoneNumber())
                 .username(parentDto.getUsername())
                 .active(parentDto.getActive())
                 .email(parentDto.getEmail())
+                .gender(parentDto.getGender())
                 .address(address)
                 .password(encoder.encode(parentDto.getPassword()))
                 .role(pupilRole)
