@@ -12,14 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "parents", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "username"
-        }),
-        @UniqueConstraint(columnNames = {
-                "email"
-        })
-})
+@Table(name = "parents")
 public class Parent extends User {
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -32,5 +25,4 @@ public class Parent extends User {
 
     /*@OneToMany(mappedBy = "parent", fetch= FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Pupil> pupils;*/
-
 }

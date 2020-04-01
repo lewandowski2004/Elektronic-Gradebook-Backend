@@ -1,6 +1,9 @@
 package lewandowski.electronic_gradebook.model;
 
+import lewandowski.electronic_gradebook.model.enums.Country;
+import lewandowski.electronic_gradebook.model.enums.RoleName;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
@@ -21,4 +24,8 @@ public class Address {
     private String city;
 
     private String zipCode;
+
+    @Enumerated(EnumType.STRING)
+    @NaturalId
+    private Country country;
 }

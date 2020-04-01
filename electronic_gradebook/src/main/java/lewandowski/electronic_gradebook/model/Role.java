@@ -1,5 +1,6 @@
 package lewandowski.electronic_gradebook.model;
 
+import lewandowski.electronic_gradebook.model.enums.RoleName;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.NaturalId;

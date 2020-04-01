@@ -1,5 +1,6 @@
 package lewandowski.electronic_gradebook.model;
 
+import lewandowski.electronic_gradebook.model.enums.Gender;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
@@ -40,6 +41,7 @@ public class User {
     private Date dateOfBirth;
 
     @Column(name = "date_of_addition")
+    @Temporal(TemporalType.DATE)
     private Date dateOfAddition;
 
     @Column(name = "phone_number")

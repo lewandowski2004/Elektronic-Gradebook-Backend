@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,15 +14,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "pupils", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "username"
-        }),
-        @UniqueConstraint(columnNames = {
-                "email"
-        })
-})
+@Table(name = "pupils")
 public class Pupil extends User {
+
+    private String fatherName;
+
+    private String motherName;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")

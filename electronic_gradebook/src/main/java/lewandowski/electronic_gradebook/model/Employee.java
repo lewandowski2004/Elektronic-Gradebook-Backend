@@ -13,14 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "employee", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "username"
-        }),
-        @UniqueConstraint(columnNames = {
-                "email"
-        })
-})
+@Table(name = "employees")
 public class Employee extends User{
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -32,5 +25,4 @@ public class Employee extends User{
     @ManyToOne
     @JoinColumn(name="school_id")
     private School school;
-
 }
