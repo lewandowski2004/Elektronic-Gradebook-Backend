@@ -5,15 +5,14 @@ import lewandowski.electronic_gradebook.dto.UserDto;
 import lewandowski.electronic_gradebook.model.Employee;
 import lewandowski.electronic_gradebook.model.Parent;
 import lewandowski.electronic_gradebook.model.Pupil;
+import lewandowski.electronic_gradebook.model.enums.Country;
+import lewandowski.electronic_gradebook.model.enums.Gender;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,12 +22,17 @@ public class UserPrincipal extends UserDto implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(UUID id, String name, String lastName, String username, String email, String addressLine1, String addressLine2,
-                         String city, String zipCode, String password, int active,
-                         Collection<? extends GrantedAuthority> authorities) {
-        super(id, name, lastName, username, email, addressLine1, addressLine2, city, zipCode, password, active);
+    public UserPrincipal(UUID id, String name, String secondName, String lastName, String pesel,
+                         Date dateOfBirth, Date dateOfAddition, String phoneNumber, String username,
+                         String email, Gender gender, String street, int buildingNumber,
+                         int apartmentNumber, String city, String zipCode, Country country,
+                         String password, int active, Collection<? extends GrantedAuthority> authorities) {
+        super(id, name, secondName, lastName, pesel, dateOfBirth, dateOfAddition, phoneNumber, username,
+                email, gender, street, buildingNumber, apartmentNumber, city, zipCode, country, password,
+                active);
         this.authorities = authorities;
     }
+
 
     public static UserPrincipal createEmployee(Employee employee) {
         List<GrantedAuthority> authorities = employee.getRoles().stream().map(role ->
@@ -38,13 +42,21 @@ public class UserPrincipal extends UserDto implements UserDetails {
         return new UserPrincipal(
                 employee.getId(),
                 employee.getName(),
+                employee.getSecondName(),
                 employee.getLastName(),
+                employee.getPesel(),
+                employee.getDateOfBirth(),
+                employee.getDateOfAddition(),
+                employee.getPhoneNumber(),
                 employee.getUsername(),
                 employee.getEmail(),
-                employee.getAddress().getAddressLine1(),
-                employee.getAddress().getAddressLine2(),
+                employee.getGender(),
+                employee.getAddress().getStreet(),
+                employee.getAddress().getBuildingNumber(),
+                employee.getAddress().getApartmentNumber(),
                 employee.getAddress().getCity(),
                 employee.getAddress().getZipCode(),
+                employee.getAddress().getCountry(),
                 employee.getPassword(),
                 employee.getActive(),
                 authorities
@@ -57,13 +69,23 @@ public class UserPrincipal extends UserDto implements UserDetails {
         return new UserPrincipal(
                 pupil.getId(),
                 pupil.getName(),
+                pupil.getSecondName(),
                 pupil.getLastName(),
+                pupil.getPesel(),
+                pupil.getDateOfBirth(),
+                pupil.getDateOfAddition(),
+                pupil.getPhoneNumber(),
                 pupil.getUsername(),
                 pupil.getEmail(),
-                pupil.getAddress().getAddressLine1(),
-                pupil.getAddress().getAddressLine2(),
+                pupil.getGender(),
+                //pupil.getMotherName(),
+                //pupil.getFatherName(),
+                pupil.getAddress().getStreet(),
+                pupil.getAddress().getBuildingNumber(),
+                pupil.getAddress().getApartmentNumber(),
                 pupil.getAddress().getCity(),
                 pupil.getAddress().getZipCode(),
+                pupil.getAddress().getCountry(),
                 pupil.getPassword(),
                 pupil.getActive(),
                 authorities
@@ -77,13 +99,21 @@ public class UserPrincipal extends UserDto implements UserDetails {
         return new UserPrincipal(
                 parent.getId(),
                 parent.getName(),
+                parent.getSecondName(),
                 parent.getLastName(),
+                parent.getPesel(),
+                parent.getDateOfBirth(),
+                parent.getDateOfAddition(),
+                parent.getPhoneNumber(),
                 parent.getUsername(),
                 parent.getEmail(),
-                parent.getAddress().getAddressLine1(),
-                parent.getAddress().getAddressLine2(),
+                parent.getGender(),
+                parent.getAddress().getStreet(),
+                parent.getAddress().getBuildingNumber(),
+                parent.getAddress().getApartmentNumber(),
                 parent.getAddress().getCity(),
                 parent.getAddress().getZipCode(),
+                parent.getAddress().getCountry(),
                 parent.getPassword(),
                 parent.getActive(),
                 authorities
