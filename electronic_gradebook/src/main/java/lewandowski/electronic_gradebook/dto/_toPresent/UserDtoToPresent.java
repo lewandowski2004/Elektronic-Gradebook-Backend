@@ -2,6 +2,8 @@ package lewandowski.electronic_gradebook.dto._toPresent;
 
 import lewandowski.electronic_gradebook.dto.RoleDto;
 import lewandowski.electronic_gradebook.dto.UserDto;
+import lewandowski.electronic_gradebook.model.enums.Country;
+import lewandowski.electronic_gradebook.model.enums.Gender;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -15,10 +17,10 @@ public class UserDtoToPresent extends UserDto {
 
     private RoleDto roleDto;
 
-    public UserDtoToPresent(String name, String lastName, String username, String email, String street,
-                            int buildingNumber, int apartmentNumber, String city, String zipCode,
+    public UserDtoToPresent(String name, String lastName, String username, String email, Gender gender, String street,
+                            int buildingNumber, int apartmentNumber, String city, String zipCode, Country country,
                             RoleDto roleDto) {
-        super(name, lastName, username, email, street, buildingNumber, apartmentNumber, city, zipCode);
+        super(name, lastName, username, email, gender, street, buildingNumber, apartmentNumber, city, zipCode, country);
         this.roleDto = roleDto;
     }
 }
