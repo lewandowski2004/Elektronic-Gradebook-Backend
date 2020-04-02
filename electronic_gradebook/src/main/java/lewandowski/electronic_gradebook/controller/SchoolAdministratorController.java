@@ -1,6 +1,8 @@
 package lewandowski.electronic_gradebook.controller;
 
-import lewandowski.electronic_gradebook.dto.*;
+import lewandowski.electronic_gradebook.dto._toSave.EmployeeDtoToSave;
+import lewandowski.electronic_gradebook.dto._toSave.ParentDtoToSave;
+import lewandowski.electronic_gradebook.dto._toSave.PupilDtoToSave;
 import lewandowski.electronic_gradebook.payload.ApiResponse;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
 import lewandowski.electronic_gradebook.repository.ParentRepository;
@@ -8,6 +10,7 @@ import lewandowski.electronic_gradebook.repository.PupilRepository;
 import lewandowski.electronic_gradebook.services.EmployeeService;
 import lewandowski.electronic_gradebook.services.ParentService;
 import lewandowski.electronic_gradebook.services.PupilService;
+import lewandowski.electronic_gradebook.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,23 +34,17 @@ public class SchoolAdministratorController {
     EmployeeService employeeService;
 
     @Autowired
-    PupilRepository pupilRepository;
-
-    @Autowired
-    ParentRepository parentRepository;
-
-    @Autowired
-    EmployeeRepository employeeRepository;
+    UserService userService;
 
 
     @PostMapping("/register/pupil")
     public ResponseEntity<?> registerPupil(@Valid @RequestBody PupilDtoToSave pupilDto) {
-        if (pupilRepository.existsByUsername(pupilDto.getUsername())) {
+        if (userService.existsByUsername(pupilDto.getUsername())) {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
 
-        if (pupilRepository.existsByEmail(pupilDto.getEmail())) {
+        if (userService.existsByEmail(pupilDto.getEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
         }
@@ -63,12 +60,12 @@ public class SchoolAdministratorController {
 
     @PostMapping("/register/parent")
     public ResponseEntity<?> registerParent(@Valid @RequestBody ParentDtoToSave parentDto) {
-        if (parentRepository.existsByUsername(parentDto.getUsername())) {
+        if (userService.existsByUsername(parentDto.getUsername())) {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
 
-        if (parentRepository.existsByEmail(parentDto.getEmail())) {
+        if (userService.existsByEmail(parentDto.getEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
         }
@@ -84,12 +81,12 @@ public class SchoolAdministratorController {
 
     @PostMapping("/register/employee")
     public ResponseEntity<?> registerEmployee(@Valid @RequestBody EmployeeDtoToSave employeeDto) {
-        if (employeeRepository.existsByUsername(employeeDto.getUsername())) {
+        if (userService.existsByUsername(employeeDto.getUsername())) {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
 
-        if (employeeRepository.existsByEmail(employeeDto.getEmail())) {
+        if (userService.existsByEmail(employeeDto.getEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
         }

@@ -1,6 +1,6 @@
 package lewandowski.electronic_gradebook.controller;
 
-import lewandowski.electronic_gradebook.dto.EmployeeDtoToSave;
+import lewandowski.electronic_gradebook.dto._toSave.EmployeeDtoToSave;
 import lewandowski.electronic_gradebook.payload.ApiResponse;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
 import lewandowski.electronic_gradebook.repository.ParentRepository;
@@ -10,6 +10,7 @@ import lewandowski.electronic_gradebook.security.JwtTokenProvider;
 import lewandowski.electronic_gradebook.services.EmployeeService;
 import lewandowski.electronic_gradebook.services.ParentService;
 import lewandowski.electronic_gradebook.services.PupilService;
+import lewandowski.electronic_gradebook.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +37,7 @@ public class AdminController {
     EmployeeService employeeService;
 
     @Autowired
-    PupilRepository pupilRepository;
-
-    @Autowired
-    ParentRepository parentRepository;
-
-    @Autowired
-    EmployeeRepository employeeRepository;
+    UserService userService;
 
     @Autowired
     RoleRepository roleRepository;
@@ -55,12 +50,12 @@ public class AdminController {
 
     @PostMapping("/register/school-administrator")
     public ResponseEntity<?> registerPupil(@Valid @RequestBody EmployeeDtoToSave employeeDto) {
-        if (employeeRepository.existsByUsername(employeeDto.getUsername())) {
+        if (userService.existsByUsername(employeeDto.getUsername())) {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
 
-        if (employeeRepository.existsByEmail(employeeDto.getEmail())) {
+        if (userService.existsByEmail(employeeDto.getEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
         }
@@ -71,6 +66,6 @@ public class AdminController {
                 .fromCurrentContextPath().path("/users/{username}")
                 .buildAndExpand(employeeDto.getUsername()).toUri();*/
 
-        return ResponseEntity.ok(new ApiResponse(true, "Pupil registered successfully"));
+        return ResponseEntity.ok(new ApiResponse(true, "School Administrator registered successfully"));
     }
 }
