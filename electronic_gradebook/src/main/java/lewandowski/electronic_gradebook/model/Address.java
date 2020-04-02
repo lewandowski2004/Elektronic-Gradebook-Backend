@@ -26,6 +26,5 @@ public class Address {
     private String zipCode;
 
     @Enumerated(EnumType.STRING)
-    @NaturalId
     private Country country;
 }

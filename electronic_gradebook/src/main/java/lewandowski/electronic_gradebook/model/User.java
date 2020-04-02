@@ -1,6 +1,7 @@
 package lewandowski.electronic_gradebook.model;
 
 import lewandowski.electronic_gradebook.model.enums.Gender;
+import lewandowski.electronic_gradebook.model.enums.SchoolBody;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,7 +20,7 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
+    @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
@@ -54,8 +55,7 @@ public class User {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @NaturalId
-    @Column(length = 60)
+    @Column(name = "gender")
     private Gender gender;
 
     @Embedded
@@ -63,6 +63,10 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "school_body")
+    private SchoolBody schoolBody;
 
     @Transient
     private String confirmPassword;
@@ -75,5 +79,4 @@ public class User {
 
     @Transient
     private String oldPassword;
-
 }

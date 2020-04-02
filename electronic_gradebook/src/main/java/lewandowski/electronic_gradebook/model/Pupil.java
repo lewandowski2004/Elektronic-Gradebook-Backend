@@ -14,7 +14,14 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Entity
-@Table(name = "pupils")
+@Table(name = "pupils",
+        uniqueConstraints = @UniqueConstraint
+                (columnNames = {
+                        "id",
+                        "username",
+                        "email"}
+                 )
+)
 public class Pupil extends User {
 
     private String fatherName;

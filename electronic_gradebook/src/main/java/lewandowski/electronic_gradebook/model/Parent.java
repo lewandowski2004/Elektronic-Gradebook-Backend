@@ -12,7 +12,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "parents")
+@Table(name = "parents",
+        uniqueConstraints = @UniqueConstraint
+                (columnNames = {
+                        "id",
+                        "username",
+                        "email"}
+                )
+)
 public class Parent extends User {
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -20,7 +27,7 @@ public class Parent extends User {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name="school_id")
+    @JoinColumn(name = "school_id")
     private School school;
 
     /*@OneToMany(mappedBy = "parent", fetch= FetchType.EAGER, cascade = CascadeType.REMOVE)

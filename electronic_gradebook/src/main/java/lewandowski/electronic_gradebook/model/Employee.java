@@ -13,7 +13,14 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "employees")
+@Table(name = "employees",
+        uniqueConstraints=@UniqueConstraint
+                (columnNames={
+                        "id",
+                        "username",
+                        "email"}
+                 )
+        )
 public class Employee extends User{
 
     @ManyToMany(fetch = FetchType.LAZY)
