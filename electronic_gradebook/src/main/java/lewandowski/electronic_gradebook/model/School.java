@@ -1,5 +1,7 @@
 package lewandowski.electronic_gradebook.model;
 
+import lewandowski.electronic_gradebook.model.enums.Country;
+import lewandowski.electronic_gradebook.model.enums.TypeSchool;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,6 +24,21 @@ public class School {
     private UUID id;
 
     private String name;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "email")
+    private String email;
+
+    @Embedded
+    private Address address;
+
+    @Temporal(value=TemporalType.DATE)
+    private Date dateOfAddition;
+
+    @Enumerated(EnumType.STRING)
+    private TypeSchool typeSchool;
 
     @OneToMany(mappedBy="school", fetch=FetchType.EAGER)
     private Set<Employee> employees;
