@@ -24,29 +24,25 @@ import javax.validation.Valid;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final PupilService pupilService;
+    private final ParentService parentService;
+    private final EmployeeService employeeService;
+    private final UserService userService;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider tokenProvider;
 
-    @Autowired
-    PupilService pupilService;
-
-    @Autowired
-    ParentService parentService;
-
-    @Autowired
-    EmployeeService employeeService;
-
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
-    JwtTokenProvider tokenProvider;
+    public AdminController(AuthenticationManager authenticationManager, PupilService pupilService, ParentService parentService, EmployeeService employeeService, UserService userService, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.pupilService = pupilService;
+        this.parentService = parentService;
+        this.employeeService = employeeService;
+        this.userService = userService;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenProvider = tokenProvider;
+    }
 
     @PostMapping("/register/school-administrator")
     public ResponseEntity<?> registerPupil(@Valid @RequestBody EmployeeDtoToSave employeeDto) {

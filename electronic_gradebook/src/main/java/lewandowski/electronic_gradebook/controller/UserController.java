@@ -26,10 +26,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class UserController {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private ParentService parentService;
+    private final EmployeeRepository employeeRepository;
+    private final ParentService parentService;
+
+    public UserController(EmployeeRepository employeeRepository, ParentService parentService) {
+        this.employeeRepository = employeeRepository;
+        this.parentService = parentService;
+    }
 
 
     @GetMapping("/me")

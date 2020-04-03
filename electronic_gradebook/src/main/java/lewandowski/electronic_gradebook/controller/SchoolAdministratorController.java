@@ -3,14 +3,11 @@ package lewandowski.electronic_gradebook.controller;
 import lewandowski.electronic_gradebook.dto._toSave.EmployeeDtoToSave;
 import lewandowski.electronic_gradebook.dto._toSave.ParentDtoToSave;
 import lewandowski.electronic_gradebook.dto._toSave.PupilDtoToSave;
+import lewandowski.electronic_gradebook.dto._toSave.SchoolDtoToSave;
 import lewandowski.electronic_gradebook.payload.ApiResponse;
-import lewandowski.electronic_gradebook.repository.EmployeeRepository;
-import lewandowski.electronic_gradebook.repository.ParentRepository;
-import lewandowski.electronic_gradebook.repository.PupilRepository;
-import lewandowski.electronic_gradebook.services.EmployeeService;
-import lewandowski.electronic_gradebook.services.ParentService;
-import lewandowski.electronic_gradebook.services.PupilService;
-import lewandowski.electronic_gradebook.services.UserService;
+import lewandowski.electronic_gradebook.security.CurrentUser;
+import lewandowski.electronic_gradebook.security.UserPrincipal;
+import lewandowski.electronic_gradebook.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,18 +21,32 @@ import java.net.URI;
 @RequestMapping("/api/school-administrator")
 public class SchoolAdministratorController {
 
-    @Autowired
-    PupilService pupilService;
+    private final PupilService pupilService;
+    private final ParentService parentService;
+    private final EmployeeService employeeService;
+    private final UserService userService;
+    private final SchoolService schoolService;
 
-    @Autowired
-    ParentService parentService;
+    public SchoolAdministratorController(PupilService pupilService, ParentService parentService, EmployeeService employeeService, UserService userService, SchoolService schoolService) {
+        this.pupilService = pupilService;
+        this.parentService = parentService;
+        this.employeeService = employeeService;
+        this.userService = userService;
+        this.schoolService = schoolService;
+    }
 
-    @Autowired
-    EmployeeService employeeService;
+    @PostMapping("/create/school")
+    public ResponseEntity<?> createSchool(@Valid @RequestBody SchoolDtoToSave schoolDto,
+                                          @CurrentUser UserPrincipal currentUser) {
 
-    @Autowired
-    UserService userService;
+        schoolService.saveSchoolDto(schoolDto);
 
+        /*URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/users/{username}")
+                .buildAndExpand(pupilDto.getUsername()).toUri();*/
+
+        return ResponseEntity.ok(new ApiResponse(true, "Pupil registered successfully"));
+    }
 
     @PostMapping("/register/pupil")
     public ResponseEntity<?> registerPupil(@Valid @RequestBody PupilDtoToSave pupilDto) {
@@ -43,7 +54,6 @@ public class SchoolAdministratorController {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
-
         if (userService.existsByEmail(pupilDto.getEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
@@ -64,7 +74,6 @@ public class SchoolAdministratorController {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
-
         if (userService.existsByEmail(parentDto.getEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
@@ -85,7 +94,6 @@ public class SchoolAdministratorController {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
-
         if (userService.existsByEmail(employeeDto.getEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
