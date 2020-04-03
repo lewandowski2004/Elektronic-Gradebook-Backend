@@ -1,7 +1,9 @@
 package lewandowski.electronic_gradebook.dto;
 
 import lewandowski.electronic_gradebook.model.enums.Country;
+import lewandowski.electronic_gradebook.model.enums.KindSchool;
 import lewandowski.electronic_gradebook.model.enums.TypeSchool;
+import lewandowski.electronic_gradebook.model.enums.Voivodeship;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,45 +25,33 @@ public class SchoolDto {
 
     private UUID id;
 
-    @NotEmpty(message = "Pole nie może być puste")
-    @Size(max = 50)
     private String name;
 
-    @Temporal(value=TemporalType.DATE)
+    private String patron;
+
     private Date dateOfAddition;
 
-    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "email")
     private String email;
 
-    @Size(max = 100)
-    @Column(name = "street")
     private String street;
 
-    @NotNull(message = "Pole nie może być puste")
-    @Column(name = "building_number")
     private int buildingNumber;
 
-    @Column(name = "apartment_number")
     private int apartmentNumber;
 
-    @NotEmpty(message = "Pole nie może być puste")
-    @Size(max = 100)
-    @Column(name = "city")
     private String city;
 
-    @NotEmpty(message = "Pole nie może być puste")
-    @Pattern(regexp = "\\d{2}-\\d{3}", message = "Podaj poprawny kod pocztowy!")
-    @Column(name = "zip_code")
     private String zipCode;
 
-    @NotNull(message = "Pole nie może być puste")
+    private Voivodeship voivodeship;
+
     private Country country;
 
-    @Enumerated(EnumType.STRING)
     private TypeSchool typeSchool;
+
+    private KindSchool kindSchool;
 
     private Set<EmployeeDto> employeesDto;
 

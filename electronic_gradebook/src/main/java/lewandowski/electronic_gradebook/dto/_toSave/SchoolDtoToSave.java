@@ -4,7 +4,9 @@ import lewandowski.electronic_gradebook.dto.EmployeeDto;
 import lewandowski.electronic_gradebook.dto.ParentDto;
 import lewandowski.electronic_gradebook.dto.PupilDto;
 import lewandowski.electronic_gradebook.model.enums.Country;
+import lewandowski.electronic_gradebook.model.enums.KindSchool;
 import lewandowski.electronic_gradebook.model.enums.TypeSchool;
+import lewandowski.electronic_gradebook.model.enums.Voivodeship;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,29 +31,29 @@ public class SchoolDtoToSave {
     @Size(max = 50)
     private String name;
 
+    @Size(max = 225)
+    private String patron;
+
     @Temporal(value=TemporalType.DATE)
     private Date dateOfAddition;
 
-    @Column(name = "phone_number")
+    @NotEmpty(message = "Pole nie może być puste")
     private String phoneNumber;
 
-    @Column(name = "email")
+    @NotEmpty(message = "Pole nie może być puste")
     private String email;
 
     @Size(max = 100)
-    @Column(name = "street")
+    @NotEmpty(message = "Pole nie może być puste")
     private String street;
 
     @NotNull(message = "Pole nie może być puste")
-    @Column(name = "building_number")
     private int buildingNumber;
 
-    @Column(name = "apartment_number")
     private int apartmentNumber;
 
     @NotEmpty(message = "Pole nie może być puste")
     @Size(max = 100)
-    @Column(name = "city")
     private String city;
 
     @NotEmpty(message = "Pole nie może być puste")
@@ -60,8 +62,14 @@ public class SchoolDtoToSave {
     private String zipCode;
 
     @NotNull(message = "Pole nie może być puste")
+    private Voivodeship voivodeship;
+
+    @NotNull(message = "Pole nie może być puste")
     private Country country;
 
-    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Pole nie może być puste")
     private TypeSchool typeSchool;
+
+    @NotNull(message = "Pole nie może być puste")
+    private KindSchool kindSchool;
 }

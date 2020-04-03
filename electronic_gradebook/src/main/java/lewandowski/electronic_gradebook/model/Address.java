@@ -2,6 +2,7 @@ package lewandowski.electronic_gradebook.model;
 
 import lewandowski.electronic_gradebook.model.enums.Country;
 import lewandowski.electronic_gradebook.model.enums.RoleName;
+import lewandowski.electronic_gradebook.model.enums.Voivodeship;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
@@ -24,6 +25,9 @@ public class Address {
     private String city;
 
     private String zipCode;
+
+    @Enumerated(EnumType.STRING)
+    private Voivodeship voivodeship;
 
     @Enumerated(EnumType.STRING)
     private Country country;

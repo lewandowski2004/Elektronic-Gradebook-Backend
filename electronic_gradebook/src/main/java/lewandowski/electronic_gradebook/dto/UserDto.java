@@ -2,14 +2,13 @@ package lewandowski.electronic_gradebook.dto;
 
 import lewandowski.electronic_gradebook.model.enums.Country;
 import lewandowski.electronic_gradebook.model.enums.Gender;
+import lewandowski.electronic_gradebook.model.enums.Voivodeship;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.pl.PESEL;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.UUID;
@@ -45,7 +44,7 @@ public class UserDto {
     @Temporal(value=TemporalType.DATE)
     private Date dateOfAddition;
 
-    @Column(name = "phone_number")
+    @NotEmpty(message = "Pole nie może być puste")
     private String phoneNumber;
 
     @NotEmpty(message = "Pole nie może być puste")
@@ -60,25 +59,23 @@ public class UserDto {
     private Gender gender;
 
     @Size(max = 100)
-    @Column(name = "street")
     private String street;
 
     @NotNull(message = "Pole nie może być puste")
-    @Column(name = "building_number")
     private int buildingNumber;
 
-    @Column(name = "apartment_number")
     private int apartmentNumber;
 
     @NotEmpty(message = "Pole nie może być puste")
     @Size(max = 100)
-    @Column(name = "city")
     private String city;
 
     @NotEmpty(message = "Pole nie może być puste")
     @Pattern(regexp = "\\d{2}-\\d{3}", message = "Podaj poprawny kod pocztowy!")
-    @Column(name = "zip_code")
     private String zipCode;
+
+    @NotNull(message = "Pole nie może być puste")
+    private Voivodeship voivodeship;
 
     @NotNull(message = "Pole nie może być puste")
     private Country country;
@@ -88,13 +85,14 @@ public class UserDto {
             message = "Hasło powinno zawierać dużą i małą literę, cyfrę oraz jeden ze znaków !, @, #, $.")
     private String password;
 
+
     private int active;
 
 
     public UserDto(UUID id, String name, String secondName, String lastName, String pesel,
-                   Date dateOfBirth, Date dateOfAddition, String phoneNumber, String username,
-                   String email, Gender gender, String street, int buildingNumber, int apartmentNumber,
-                   String city, String zipCode, Country country, String password, int active) {
+                   Date dateOfBirth, Date dateOfAddition, String phoneNumber, String username, String email,
+                   Gender gender, String street, int buildingNumber, int apartmentNumber,
+                   String city, String zipCode,Voivodeship voivodeship, Country country, String password, int active) {
         this.id = id;
         this.name = name;
         this.secondName = secondName;
@@ -111,6 +109,7 @@ public class UserDto {
         this.apartmentNumber = apartmentNumber;
         this.city = city;
         this.zipCode = zipCode;
+        this.voivodeship = voivodeship;
         this.country = country;
         this.password = password;
         this.active = active;
