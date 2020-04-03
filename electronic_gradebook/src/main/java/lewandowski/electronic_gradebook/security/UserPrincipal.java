@@ -7,6 +7,7 @@ import lewandowski.electronic_gradebook.model.Parent;
 import lewandowski.electronic_gradebook.model.Pupil;
 import lewandowski.electronic_gradebook.model.enums.Country;
 import lewandowski.electronic_gradebook.model.enums.Gender;
+import lewandowski.electronic_gradebook.model.enums.Voivodeship;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,10 +26,10 @@ public class UserPrincipal extends UserDto implements UserDetails {
     public UserPrincipal(UUID id, String name, String secondName, String lastName, String pesel,
                          Date dateOfBirth, Date dateOfAddition, String phoneNumber, String username,
                          String email, Gender gender, String street, int buildingNumber,
-                         int apartmentNumber, String city, String zipCode, Country country,
+                         int apartmentNumber, String city, String zipCode, Voivodeship voivodeship, Country country,
                          String password, int active, Collection<? extends GrantedAuthority> authorities) {
         super(id, name, secondName, lastName, pesel, dateOfBirth, dateOfAddition, phoneNumber, username,
-                email, gender, street, buildingNumber, apartmentNumber, city, zipCode, country, password,
+                email, gender, street, buildingNumber, apartmentNumber, city, zipCode,voivodeship, country, password,
                 active);
         this.authorities = authorities;
     }
@@ -56,6 +57,7 @@ public class UserPrincipal extends UserDto implements UserDetails {
                 employee.getAddress().getApartmentNumber(),
                 employee.getAddress().getCity(),
                 employee.getAddress().getZipCode(),
+                employee.getAddress().getVoivodeship(),
                 employee.getAddress().getCountry(),
                 employee.getPassword(),
                 employee.getActive(),
@@ -85,6 +87,7 @@ public class UserPrincipal extends UserDto implements UserDetails {
                 pupil.getAddress().getApartmentNumber(),
                 pupil.getAddress().getCity(),
                 pupil.getAddress().getZipCode(),
+                pupil.getAddress().getVoivodeship(),
                 pupil.getAddress().getCountry(),
                 pupil.getPassword(),
                 pupil.getActive(),
@@ -113,6 +116,7 @@ public class UserPrincipal extends UserDto implements UserDetails {
                 parent.getAddress().getApartmentNumber(),
                 parent.getAddress().getCity(),
                 parent.getAddress().getZipCode(),
+                parent.getAddress().getVoivodeship(),
                 parent.getAddress().getCountry(),
                 parent.getPassword(),
                 parent.getActive(),
