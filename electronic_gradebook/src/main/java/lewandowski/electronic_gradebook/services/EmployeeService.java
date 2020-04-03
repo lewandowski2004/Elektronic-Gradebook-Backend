@@ -21,17 +21,17 @@ import java.util.UUID;
 @Transactional
 public class EmployeeService {
 
-    @Autowired
-    RoleService roleService;
+    private final RoleService roleService;
+    private final RoleRepository roleRepository;
+    private final EmployeeRepository employeeRepository;
+    private final PasswordEncoder encoder;
 
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    EmployeeRepository employeeRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
+    public EmployeeService(RoleService roleService, RoleRepository roleRepository, EmployeeRepository employeeRepository, PasswordEncoder encoder) {
+        this.roleService = roleService;
+        this.roleRepository = roleRepository;
+        this.employeeRepository = employeeRepository;
+        this.encoder = encoder;
+    }
 
     public void saveEmployeeDto(EmployeeDtoToSave employeeDto) {
         Address address = Address.builder()
@@ -40,6 +40,7 @@ public class EmployeeService {
                 .apartmentNumber(employeeDto.getApartmentNumber())
                 .city(employeeDto.getCity())
                 .zipCode(employeeDto.getZipCode())
+                .voivodeship(employeeDto.getVoivodeship())
                 .country(employeeDto.getCountry())
                 .build();
         Employee employee = Employee.builder()

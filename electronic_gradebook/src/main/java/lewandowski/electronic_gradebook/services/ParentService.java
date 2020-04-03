@@ -20,17 +20,17 @@ import java.util.*;
 @Transactional
 public class ParentService {
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
+    private final RoleRepository roleRepository;
+    private final ParentRepository parentRepository;
+    private final PasswordEncoder encoder;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private ParentRepository parentRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
+    public ParentService(RoleService roleService, RoleRepository roleRepository, ParentRepository parentRepository, PasswordEncoder encoder) {
+        this.roleService = roleService;
+        this.roleRepository = roleRepository;
+        this.parentRepository = parentRepository;
+        this.encoder = encoder;
+    }
 
     public void saveParentDto(ParentDtoToSave parentDto) {
         Set<Role> roles = new HashSet<>();
@@ -43,6 +43,7 @@ public class ParentService {
                 .apartmentNumber(parentDto.getApartmentNumber())
                 .city(parentDto.getCity())
                 .zipCode(parentDto.getZipCode())
+                .voivodeship(parentDto.getVoivodeship())
                 .country(parentDto.getCountry())
                 .build();
         Parent parent = Parent.builder()

@@ -20,17 +20,17 @@ import java.util.*;
 @Transactional
 public class PupilService {
 
-    @Autowired
-    RoleService roleService;
+    private final RoleService roleService;
+    private final RoleRepository roleRepository;
+    private final PupilRepository pupilRepository;
+    private final PasswordEncoder encoder;
 
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    PupilRepository pupilRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
+    public PupilService(RoleService roleService, RoleRepository roleRepository, PupilRepository pupilRepository, PasswordEncoder encoder) {
+        this.roleService = roleService;
+        this.roleRepository = roleRepository;
+        this.pupilRepository = pupilRepository;
+        this.encoder = encoder;
+    }
 
     public void savePupilDto(PupilDtoToSave pupilDto) {
         Set<Role> roles = new HashSet<>();
@@ -43,6 +43,7 @@ public class PupilService {
                 .apartmentNumber(pupilDto.getApartmentNumber())
                 .city(pupilDto.getCity())
                 .zipCode(pupilDto.getZipCode())
+                .voivodeship(pupilDto.getVoivodeship())
                 .country(pupilDto.getCountry())
                 .build();
         Pupil pupil = Pupil.builder()

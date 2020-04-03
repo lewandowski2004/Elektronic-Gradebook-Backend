@@ -13,14 +13,15 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
-    EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
+    private final PupilRepository pupilRepository;
+    private final ParentRepository parentRepository;
 
-    @Autowired
-    PupilRepository pupilRepository;
-
-    @Autowired
-    ParentRepository parentRepository;
+    public UserService(EmployeeRepository employeeRepository, PupilRepository pupilRepository, ParentRepository parentRepository) {
+        this.employeeRepository = employeeRepository;
+        this.pupilRepository = pupilRepository;
+        this.parentRepository = parentRepository;
+    }
 
     public Boolean existsByUsername(String UsernameOrEmail){
         if (employeeRepository.existsByUsername(UsernameOrEmail) ||
