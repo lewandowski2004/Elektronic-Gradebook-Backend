@@ -21,12 +21,16 @@ import java.util.*;
 public class ParentService {
 
     private final RoleService roleService;
+    private final SchoolService schoolService;
     private final RoleRepository roleRepository;
     private final ParentRepository parentRepository;
     private final PasswordEncoder encoder;
 
-    public ParentService(RoleService roleService, RoleRepository roleRepository, ParentRepository parentRepository, PasswordEncoder encoder) {
+    public ParentService(RoleService roleService, SchoolService schoolService,
+                         RoleRepository roleRepository, ParentRepository parentRepository,
+                         PasswordEncoder encoder) {
         this.roleService = roleService;
+        this.schoolService = schoolService;
         this.roleRepository = roleRepository;
         this.parentRepository = parentRepository;
         this.encoder = encoder;
@@ -59,6 +63,7 @@ public class ParentService {
                 .email(parentDto.getEmail())
                 .gender(parentDto.getGender())
                 .address(address)
+                .school(schoolService.getSchool(parentDto.getSchoolDto()))
                 .password(encoder.encode(parentDto.getPassword()))
                 .role(pupilRole)
                 .build();

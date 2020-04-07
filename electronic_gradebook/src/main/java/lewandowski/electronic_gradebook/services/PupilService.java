@@ -21,12 +21,16 @@ import java.util.*;
 public class PupilService {
 
     private final RoleService roleService;
+    private final SchoolService schoolService;
     private final RoleRepository roleRepository;
     private final PupilRepository pupilRepository;
     private final PasswordEncoder encoder;
 
-    public PupilService(RoleService roleService, RoleRepository roleRepository, PupilRepository pupilRepository, PasswordEncoder encoder) {
+    public PupilService(RoleService roleService, SchoolService schoolService,
+                        RoleRepository roleRepository, PupilRepository pupilRepository,
+                        PasswordEncoder encoder) {
         this.roleService = roleService;
+        this.schoolService = schoolService;
         this.roleRepository = roleRepository;
         this.pupilRepository = pupilRepository;
         this.encoder = encoder;
@@ -61,6 +65,7 @@ public class PupilService {
                 .motherName(pupilDto.getMotherName())
                 .fatherName(pupilDto.getFatherName())
                 .address(address)
+                .school(schoolService.getSchool(pupilDto.getSchoolDto()))
                 .password(encoder.encode(pupilDto.getPassword()))
                 .role(pupilRole)
                 .build();

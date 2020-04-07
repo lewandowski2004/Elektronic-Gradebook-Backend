@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -40,6 +41,14 @@ public class UserService {
             return true;
         }else {
             return false;
+        }
+    }
+    public Boolean schoolAdministratorContainsSchool(UUID id){
+        Employee employee = employeeRepository.findById(id).get();
+        if(employee.getSchool() == null){
+            return false;
+        }else {
+            return true;
         }
     }
 }

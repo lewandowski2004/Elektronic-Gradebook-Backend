@@ -21,17 +21,15 @@ import java.util.UUID;
 @Transactional
 public class EmployeeService {
 
-    private final RoleService roleService;
-    private final RoleRepository roleRepository;
-    private final EmployeeRepository employeeRepository;
-    private final PasswordEncoder encoder;
+    @Autowired
+    public   RoleService roleService;
+    @Autowired
+    public   SchoolService schoolService;
+    @Autowired
+    public   EmployeeRepository employeeRepository;
+    @Autowired
+    public   PasswordEncoder encoder;
 
-    public EmployeeService(RoleService roleService, RoleRepository roleRepository, EmployeeRepository employeeRepository, PasswordEncoder encoder) {
-        this.roleService = roleService;
-        this.roleRepository = roleRepository;
-        this.employeeRepository = employeeRepository;
-        this.encoder = encoder;
-    }
 
     public void saveEmployeeDto(EmployeeDtoToSave employeeDto) {
         Address address = Address.builder()
@@ -56,6 +54,7 @@ public class EmployeeService {
                 .email(employeeDto.getEmail())
                 .gender(employeeDto.getGender())
                 .address(address)
+                .school(schoolService.getSchool(employeeDto.getSchoolDto()))
                 .password(encoder.encode(employeeDto.getPassword()))
                 .roles(roleService.findByIdIn(employeeDto.getRoles()))
                 .build();
@@ -81,16 +80,34 @@ public class EmployeeService {
     }
 
     public Employee getEmployee(EmployeeDto employeeDto) {
-        return Employee.builder()
+        Address address = Address.builder()
+                .street(employeeDto.getStreet())
+                .buildingNumber(employeeDto.getBuildingNumber())
+                .apartmentNumber(employeeDto.getApartmentNumber())
+                .city(employeeDto.getCity())
+                .zipCode(employeeDto.getZipCode())
+                .voivodeship(employeeDto.getVoivodeship())
+                .country(employeeDto.getCountry())
+                .build();
+        Employee employee = Employee.builder()
                 .id(employeeDto.getId())
                 .name(employeeDto.getName())
+                .secondName(employeeDto.getSecondName())
                 .lastName(employeeDto.getLastName())
-                .email(employeeDto.getEmail())
-                .password(employeeDto.getPassword())
+                .pesel(employeeDto.getPesel())
+                .dateOfBirth(employeeDto.getDateOfBirth())
+                .dateOfAddition(new Date())
+                .phoneNumber(employeeDto.getPhoneNumber())
+                .username(employeeDto.getUsername())
                 .active(employeeDto.getActive())
+                .email(employeeDto.getEmail())
+                .gender(employeeDto.getGender())
+                .address(address)
+                .school(schoolService.getSchool(employeeDto.getSchoolDto()))
+                .password(encoder.encode(employeeDto.getPassword()))
                 .roles(roleService.getRoles(employeeDto.getRolesDto()))
                 .build();
-
+        return employee;
     }
 
     public List<EmployeeDto> findAllEmployeesDtoList(List<Employee> employeeList) {
@@ -107,14 +124,33 @@ public class EmployeeService {
     }
 
     public EmployeeDto getEmployeeDto(Employee employee) {
-        return EmployeeDto.builder()
+
+        Address address = Address.builder()
+                .street(employee.getAddress().getStreet())
+                .buildingNumber(employee.getAddress().getBuildingNumber())
+                .apartmentNumber(employee.getAddress().getApartmentNumber())
+                .city(employee.getAddress().getCity())
+                .zipCode(employee.getAddress().getZipCode())
+                .voivodeship(employee.getAddress().getVoivodeship())
+                .country(employee.getAddress().getCountry())
+                .build();
+        EmployeeDto employeeDto = EmployeeDto.builder()
                 .id(employee.getId())
                 .name(employee.getName())
+                .secondName(employee.getSecondName())
                 .lastName(employee.getLastName())
+                .pesel(employee.getPesel())
+                .dateOfBirth(employee.getDateOfBirth())
+                .dateOfAddition(employee.getDateOfAddition())
+                .phoneNumber(employee.getPhoneNumber())
                 .username(employee.getUsername())
+                .active(employee.getActive())
                 .email(employee.getEmail())
-                .password(employee.getPassword())
+                .gender(employee.getGender())
+                .schoolDto(schoolService.getSchoolDto(employee.getSchool()))
+                .password(encoder.encode(employee.getPassword()))
                 .rolesDto(roleService.getRolesDto(employee.getRoles()))
                 .build();
+        return employeeDto;
     }
 }
