@@ -14,4 +14,6 @@ public class ParentDto extends UserDto {
 
     private RoleDto roleDto;
 
+    private SchoolDto schoolDto;
+
 }

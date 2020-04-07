@@ -1,6 +1,7 @@
 package lewandowski.electronic_gradebook.dto;
 
 import lewandowski.electronic_gradebook.model.Role;
+import lewandowski.electronic_gradebook.model.School;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -23,4 +24,6 @@ public class PupilDto extends UserDto {
     private String motherName;
 
     private RoleDto roleDto;
+
+    private SchoolDto schoolDto;
 }

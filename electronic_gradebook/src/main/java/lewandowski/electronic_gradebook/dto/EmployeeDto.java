@@ -14,4 +14,6 @@ public class EmployeeDto extends UserDto {
 
     private Set<RoleDto> rolesDto;
 
+    private SchoolDto schoolDto;
+
 }

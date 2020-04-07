@@ -37,39 +37,38 @@ public class SchoolDtoToSave {
     @Temporal(value=TemporalType.DATE)
     private Date dateOfAddition;
 
-    @NotEmpty(message = "Pole nie może być puste")
+    //@NotEmpty(message = "Pole nie może być puste")
     private String phoneNumber;
 
-    @NotEmpty(message = "Pole nie może być puste")
+    //@NotEmpty(message = "Pole nie może być puste")
     private String email;
 
     @Size(max = 100)
-    @NotEmpty(message = "Pole nie może być puste")
+    //@NotEmpty(message = "Pole nie może być puste")
     private String street;
 
-    @NotNull(message = "Pole nie może być puste")
+    //@NotNull(message = "Pole nie może być puste")
     private int buildingNumber;
 
     private int apartmentNumber;
 
-    @NotEmpty(message = "Pole nie może być puste")
+    //@NotEmpty(message = "Pole nie może być puste")
     @Size(max = 100)
     private String city;
 
-    @NotEmpty(message = "Pole nie może być puste")
+    //@NotEmpty(message = "Pole nie może być puste")
     @Pattern(regexp = "\\d{2}-\\d{3}", message = "Podaj poprawny kod pocztowy!")
-    @Column(name = "zip_code")
     private String zipCode;
 
-    @NotNull(message = "Pole nie może być puste")
+    //@NotNull(message = "Pole nie może być puste")
     private Voivodeship voivodeship;
 
-    @NotNull(message = "Pole nie może być puste")
+    //@NotNull(message = "Pole nie może być puste")
     private Country country;
 
-    @NotNull(message = "Pole nie może być puste")
+    //@NotNull(message = "Pole nie może być puste")
     private TypeSchool typeSchool;
 
-    @NotNull(message = "Pole nie może być puste")
+    //@NotNull(message = "Pole nie może być puste")
     private KindSchool kindSchool;
 }
