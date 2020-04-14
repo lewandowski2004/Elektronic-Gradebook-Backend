@@ -79,6 +79,13 @@ public class EmployeeService {
         return getEmployeeDto(employee);
     }
 
+    public EmployeeDto findByEmail(String email) {
+        Employee employee = employeeRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("Error: Employee is not found."));
+        return getEmployeeDto(employee);
+    }
+
     public Employee getEmployee(EmployeeDto employeeDto) {
         Address address = Address.builder()
                 .street(employeeDto.getStreet())

@@ -78,6 +78,13 @@ public class ParentService {
         return getParentDto(parent);
     }
 
+    public ParentDto findByEmail(String email) {
+        Parent parent = parentRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("Error: Parent is not found."));
+        return getParentDto(parent);
+    }
+
     public List<ParentDto> findAllEmployeesDto() {
         return findAllParentsDtoList(parentRepository.findAll());
     }

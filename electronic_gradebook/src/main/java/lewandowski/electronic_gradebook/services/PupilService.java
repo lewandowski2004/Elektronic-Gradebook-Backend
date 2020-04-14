@@ -79,6 +79,13 @@ public class PupilService {
                         new RuntimeException("Error: Pupil is not found."));
         return getPupilDto(pupil);
     }
+    public PupilDto findByEmail(String email) {
+        Pupil pupil = pupilRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("Error: Pupil is not found."));
+        return getPupilDto(pupil);
+    }
+
 
     public List<PupilDto> findAllPupilsDto() {
         return findAllPupilsDtoList(pupilRepository.findAll());

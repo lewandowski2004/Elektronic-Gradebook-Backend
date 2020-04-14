@@ -1,14 +1,14 @@
 package lewandowski.electronic_gradebook.services;
 
 import lewandowski.electronic_gradebook.model.Employee;
+import lewandowski.electronic_gradebook.payload.ApiResponse;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
 import lewandowski.electronic_gradebook.repository.ParentRepository;
 import lewandowski.electronic_gradebook.repository.PupilRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -37,12 +37,13 @@ public class UserService {
     public Boolean existsByEmail(String UsernameOrEmail){
         if (employeeRepository.existsByEmail(UsernameOrEmail) ||
                 pupilRepository.existsByEmail(UsernameOrEmail) ||
-                parentRepository.existsByEmail(UsernameOrEmail)){
+                    parentRepository.existsByEmail(UsernameOrEmail)){
             return true;
         }else {
             return false;
         }
     }
+
     public Boolean schoolAdministratorContainsSchool(UUID id){
         Employee employee = employeeRepository.findById(id).get();
         if(employee.getSchool() == null){
