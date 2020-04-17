@@ -1,16 +1,26 @@
 package lewandowski.electronic_gradebook.controller;
 
-import lewandowski.electronic_gradebook.dto.ParentDto;
+import lewandowski.electronic_gradebook.dto.MessageDto;
+import lewandowski.electronic_gradebook.dto.UserDto;
 import lewandowski.electronic_gradebook.dto._toPresent.UserDtoToPresent;
-import lewandowski.electronic_gradebook.exception.ResourceNotFoundException;
-import lewandowski.electronic_gradebook.model.Employee;
-import lewandowski.electronic_gradebook.payload.UserProfile;
+import lewandowski.electronic_gradebook.dto._toSave.MessageDtoToSave;
+import lewandowski.electronic_gradebook.dto._toSave.SchoolDtoToSave;
+import lewandowski.electronic_gradebook.model.Message;
+import lewandowski.electronic_gradebook.payload.ApiResponse;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
 import lewandowski.electronic_gradebook.security.CurrentUser;
 import lewandowski.electronic_gradebook.security.UserPrincipal;
+import lewandowski.electronic_gradebook.services.MessageService;
 import lewandowski.electronic_gradebook.services.ParentService;
+import lewandowski.electronic_gradebook.services.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -18,16 +28,44 @@ public class UserController {
 
     private final EmployeeRepository employeeRepository;
     private final ParentService parentService;
+    private final UserService userService;
+    private final MessageService messageService;
 
-    public UserController(EmployeeRepository employeeRepository, ParentService parentService) {
+    public UserController(EmployeeRepository employeeRepository, ParentService parentService,
+                          UserService userService, MessageService messageService) {
         this.employeeRepository = employeeRepository;
         this.parentService = parentService;
+        this.userService = userService;
+        this.messageService = messageService;
+    }
+
+    @PostMapping(path="/add/message")
+    public ResponseEntity<?> addMessage(@Valid @RequestBody MessageDtoToSave newMessage,
+                                        @CurrentUser UserPrincipal currentUser) {
+
+        newMessage.setSenderEmail(currentUser.getEmail());
+        messageService.saveMessageDto(newMessage);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/messages/sent")
+                .buildAndExpand().toUri();
+
+        return ResponseEntity
+                .created(location)
+                .body(newMessage);
     }
 
 
+    @GetMapping(path="/messages/sent")
+    public ResponseEntity<?> getMyMessagesSent(@CurrentUser UserPrincipal currentUser) {
+
+        List<MessageDto> messages = messageService.getMessagesDtoBySenderEmail(currentUser.getEmail());
+
+        return ResponseEntity.ok(messages);
+    }
+
     @GetMapping("/me")
-    public ParentDto getCurrentUser(@CurrentUser UserPrincipal currentUser) {
-        ParentDto userDto = parentService.findById(currentUser.getId());
+    public ResponseEntity<?> getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+        UserDto userDto = userService.findUserById(currentUser.getId());
 
         UserDtoToPresent userDtoToPresent = new UserDtoToPresent(
                 userDto.getName(),
@@ -40,10 +78,9 @@ public class UserController {
                 userDto.getApartmentNumber(),
                 userDto.getCity(),
                 userDto.getZipCode(),
-                userDto.getCountry(),
-                userDto.getRoleDto());
+                userDto.getCountry());
 
-        return userDto;
+        return ResponseEntity.ok(userDtoToPresent);
     }
 
     @GetMapping("/pupil")

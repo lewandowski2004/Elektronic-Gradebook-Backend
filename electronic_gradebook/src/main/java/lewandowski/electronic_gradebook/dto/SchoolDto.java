@@ -58,4 +58,5 @@ public class SchoolDto {
     private Set<PupilDto> pupilsDto;
 
     private Set<ParentDto> parentsDto;
+
 }

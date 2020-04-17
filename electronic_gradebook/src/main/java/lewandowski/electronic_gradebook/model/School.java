@@ -1,6 +1,5 @@
 package lewandowski.electronic_gradebook.model;
 
-import lewandowski.electronic_gradebook.model.enums.Country;
 import lewandowski.electronic_gradebook.model.enums.KindSchool;
 import lewandowski.electronic_gradebook.model.enums.TypeSchool;
 import lombok.*;

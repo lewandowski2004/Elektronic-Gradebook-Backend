@@ -5,6 +5,7 @@ import lewandowski.electronic_gradebook.dto.UserDto;
 import lewandowski.electronic_gradebook.model.Employee;
 import lewandowski.electronic_gradebook.model.Parent;
 import lewandowski.electronic_gradebook.model.Pupil;
+import lewandowski.electronic_gradebook.model.School;
 import lewandowski.electronic_gradebook.model.enums.Country;
 import lewandowski.electronic_gradebook.model.enums.Gender;
 import lewandowski.electronic_gradebook.model.enums.Voivodeship;
@@ -21,17 +22,20 @@ import java.util.stream.Collectors;
 @Setter
 public class UserPrincipal extends UserDto implements UserDetails {
 
+    private School school;
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserPrincipal(UUID id, String name, String secondName, String lastName, String pesel,
                          Date dateOfBirth, Date dateOfAddition, String phoneNumber, String username,
                          String email, Gender gender, String street, int buildingNumber,
-                         int apartmentNumber, String city, String zipCode, Voivodeship voivodeship, Country country,
-                         String password, int active, Collection<? extends GrantedAuthority> authorities) {
+                         int apartmentNumber, String city, String zipCode, Voivodeship voivodeship,
+                         Country country, School school, String password,
+                         int active, Collection<? extends GrantedAuthority> authorities) {
         super(id, name, secondName, lastName, pesel, dateOfBirth, dateOfAddition, phoneNumber, username,
                 email, gender, street, buildingNumber, apartmentNumber, city, zipCode,voivodeship, country, password,
                 active);
         this.authorities = authorities;
+        this.school = school;
     }
 
 
@@ -59,6 +63,7 @@ public class UserPrincipal extends UserDto implements UserDetails {
                 employee.getAddress().getZipCode(),
                 employee.getAddress().getVoivodeship(),
                 employee.getAddress().getCountry(),
+                employee.getSchool(),
                 employee.getPassword(),
                 employee.getActive(),
                 authorities
@@ -89,6 +94,7 @@ public class UserPrincipal extends UserDto implements UserDetails {
                 pupil.getAddress().getZipCode(),
                 pupil.getAddress().getVoivodeship(),
                 pupil.getAddress().getCountry(),
+                pupil.getSchool(),
                 pupil.getPassword(),
                 pupil.getActive(),
                 authorities
@@ -118,6 +124,7 @@ public class UserPrincipal extends UserDto implements UserDetails {
                 parent.getAddress().getZipCode(),
                 parent.getAddress().getVoivodeship(),
                 parent.getAddress().getCountry(),
+                parent.getSchool(),
                 parent.getPassword(),
                 parent.getActive(),
                 authorities

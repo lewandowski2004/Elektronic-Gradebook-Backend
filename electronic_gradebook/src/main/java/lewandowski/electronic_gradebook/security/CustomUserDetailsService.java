@@ -17,7 +17,7 @@ import java.util.UUID;
 
 
 @Service
-public class CustomPupilDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     PupilRepository pupilRepository;

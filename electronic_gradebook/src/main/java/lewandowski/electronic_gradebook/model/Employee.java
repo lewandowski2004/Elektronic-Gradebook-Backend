@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -32,4 +33,5 @@ public class Employee extends User{
     @ManyToOne
     @JoinColumn(name="school_id")
     private School school;
+
 }

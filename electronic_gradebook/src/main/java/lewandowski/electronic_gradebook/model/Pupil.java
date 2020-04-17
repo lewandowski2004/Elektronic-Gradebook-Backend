@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +36,7 @@ public class Pupil extends User {
     @ManyToOne
     @JoinColumn(name="school_id")
     private School school;
+
 
     /*@ManyToOne
     @JoinColumn(name = "parent_id")

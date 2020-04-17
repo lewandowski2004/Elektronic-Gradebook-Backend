@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -19,11 +20,14 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 
     Optional<Employee> findByUsernameOrEmail(String username, String email);
 
-    List<Employee> findByIdIn(List<UUID> userIds);
+    Set<Employee> findByIdIn(Set<UUID> id);
+
+    Set<Employee> findByEmailIn(Set<String> emails);
 
     Optional<Employee> findByUsername(String username);
 
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+
 }

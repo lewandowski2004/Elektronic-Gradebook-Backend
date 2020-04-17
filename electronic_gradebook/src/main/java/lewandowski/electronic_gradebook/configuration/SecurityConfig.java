@@ -1,6 +1,6 @@
 package lewandowski.electronic_gradebook.configuration;
 
-import lewandowski.electronic_gradebook.security.CustomPupilDetailsService;
+import lewandowski.electronic_gradebook.security.CustomUserDetailsService;
 import lewandowski.electronic_gradebook.security.JwtAuthenticationEntryPoint;
 import lewandowski.electronic_gradebook.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    CustomPupilDetailsService customPupilDetailsService;
+    CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
-                .userDetailsService(customPupilDetailsService)
+                .userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 

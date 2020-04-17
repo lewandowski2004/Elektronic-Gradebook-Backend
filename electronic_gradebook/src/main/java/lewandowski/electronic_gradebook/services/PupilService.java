@@ -1,15 +1,16 @@
 package lewandowski.electronic_gradebook.services;
 
 
+import lewandowski.electronic_gradebook.Component.MessageComponent;
 import lewandowski.electronic_gradebook.dto.PupilDto;
 import lewandowski.electronic_gradebook.dto._toSave.PupilDtoToSave;
 import lewandowski.electronic_gradebook.model.Address;
+import lewandowski.electronic_gradebook.model.Parent;
 import lewandowski.electronic_gradebook.model.Pupil;
 import lewandowski.electronic_gradebook.model.Role;
 import lewandowski.electronic_gradebook.model.enums.RoleName;
 import lewandowski.electronic_gradebook.repository.PupilRepository;
 import lewandowski.electronic_gradebook.repository.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,22 +25,24 @@ public class PupilService {
     private final SchoolService schoolService;
     private final RoleRepository roleRepository;
     private final PupilRepository pupilRepository;
+    private final MessageComponent messageComponent;
     private final PasswordEncoder encoder;
 
-    public PupilService(RoleService roleService, SchoolService schoolService,
-                        RoleRepository roleRepository, PupilRepository pupilRepository,
+    public PupilService(RoleService roleService, SchoolService schoolService, RoleRepository roleRepository,
+                        PupilRepository pupilRepository, MessageComponent messageComponent,
                         PasswordEncoder encoder) {
         this.roleService = roleService;
         this.schoolService = schoolService;
         this.roleRepository = roleRepository;
         this.pupilRepository = pupilRepository;
+        this.messageComponent = messageComponent;
         this.encoder = encoder;
     }
 
     public void savePupilDto(PupilDtoToSave pupilDto) {
         Set<Role> roles = new HashSet<>();
         Role pupilRole = roleRepository.findByName(RoleName.ROLE_PUPIL)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                .orElseThrow(() -> new RuntimeException(messageComponent.NOT_FOUND));
         roles.add(pupilRole);
         Address address = Address.builder()
                 .street(pupilDto.getStreet())
@@ -73,24 +76,6 @@ public class PupilService {
         pupilRepository.save(pupil);
     }
 
-    public PupilDto findById(UUID id) {
-        Pupil pupil = pupilRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Error: Pupil is not found."));
-        return getPupilDto(pupil);
-    }
-    public PupilDto findByEmail(String email) {
-        Pupil pupil = pupilRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new RuntimeException("Error: Pupil is not found."));
-        return getPupilDto(pupil);
-    }
-
-
-    public List<PupilDto> findAllPupilsDto() {
-        return findAllPupilsDtoList(pupilRepository.findAll());
-    }
-
     public Pupil getPupil(PupilDto pupilDto) {
         return Pupil.builder()
                 .id(pupilDto.getId())
@@ -101,15 +86,6 @@ public class PupilService {
                 .password(pupilDto.getPassword())
                 .role(roleService.getRole(pupilDto.getRoleDto()))
                 .build();
-    }
-
-    public List<PupilDto> findAllPupilsDtoList(List<Pupil> pupilList) {
-        List<PupilDto> pupilDtoList = new ArrayList<>();
-        for (Pupil pupil : pupilList) {
-            PupilDto pupilDto = getPupilDto(pupil);
-            pupilDtoList.add(pupilDto);
-        }
-        return pupilDtoList;
     }
 
     public PupilDto getPupilDto(Pupil pupil) {
@@ -123,4 +99,36 @@ public class PupilService {
                 .roleDto(roleService.getRoleDto(pupil.getRole()))
                 .build();
     }
+
+    public PupilDto findById(UUID id) {
+        Pupil pupil = pupilRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException(messageComponent.NOT_FOUND));
+        return getPupilDto(pupil);
+    }
+
+    public Set<Pupil> findByIdIn(Set<UUID> listId) {
+        return pupilRepository.findByIdIn(listId);
+    }
+
+    public PupilDto findByEmail(String email) {
+        Pupil pupil = pupilRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException(messageComponent.NOT_FOUND));
+        return getPupilDto(pupil);
+    }
+
+    public List<PupilDto> getPupilsDto() {
+        return findAllPupilsDtoList(pupilRepository.findAll());
+    }
+
+    public List<PupilDto> findAllPupilsDtoList(List<Pupil> pupilList) {
+        List<PupilDto> pupilDtoList = new ArrayList<>();
+        for (Pupil pupil : pupilList) {
+            PupilDto pupilDto = getPupilDto(pupil);
+            pupilDtoList.add(pupilDto);
+        }
+        return pupilDtoList;
+    }
+
 }

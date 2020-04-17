@@ -1,9 +1,11 @@
 package lewandowski.electronic_gradebook.services;
 
 
+import lewandowski.electronic_gradebook.Component.MessageComponent;
 import lewandowski.electronic_gradebook.dto.ParentDto;
 import lewandowski.electronic_gradebook.dto._toSave.ParentDtoToSave;
 import lewandowski.electronic_gradebook.model.Address;
+import lewandowski.electronic_gradebook.model.Employee;
 import lewandowski.electronic_gradebook.model.Parent;
 import lewandowski.electronic_gradebook.model.Role;
 import lewandowski.electronic_gradebook.model.enums.RoleName;
@@ -24,22 +26,24 @@ public class ParentService {
     private final SchoolService schoolService;
     private final RoleRepository roleRepository;
     private final ParentRepository parentRepository;
+    private final MessageComponent messageComponent;
     private final PasswordEncoder encoder;
 
-    public ParentService(RoleService roleService, SchoolService schoolService,
-                         RoleRepository roleRepository, ParentRepository parentRepository,
+    public ParentService(RoleService roleService, SchoolService schoolService, RoleRepository roleRepository,
+                         ParentRepository parentRepository, MessageComponent messageComponent,
                          PasswordEncoder encoder) {
         this.roleService = roleService;
         this.schoolService = schoolService;
         this.roleRepository = roleRepository;
         this.parentRepository = parentRepository;
+        this.messageComponent = messageComponent;
         this.encoder = encoder;
     }
 
     public void saveParentDto(ParentDtoToSave parentDto) {
         Set<Role> roles = new HashSet<>();
         Role pupilRole = roleRepository.findByName(RoleName.ROLE_PARENT)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                .orElseThrow(() -> new RuntimeException(messageComponent.NOT_FOUND));
         roles.add(pupilRole);
         Address address = Address.builder()
                 .street(parentDto.getStreet())
@@ -71,24 +75,6 @@ public class ParentService {
         parentRepository.save(parent);
     }
 
-    public ParentDto findById(UUID id) {
-        Parent parent = parentRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Error: Parent is not found."));
-        return getParentDto(parent);
-    }
-
-    public ParentDto findByEmail(String email) {
-        Parent parent = parentRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new RuntimeException("Error: Parent is not found."));
-        return getParentDto(parent);
-    }
-
-    public List<ParentDto> findAllEmployeesDto() {
-        return findAllParentsDtoList(parentRepository.findAll());
-    }
-
     public Parent getParent(ParentDto parentDto) {
         Address address = Address.builder()
                 .street(parentDto.getStreet())
@@ -111,15 +97,6 @@ public class ParentService {
 
     }
 
-    public List<ParentDto> findAllParentsDtoList(List<Parent> parentList) {
-        List<ParentDto> parentDtoList = new ArrayList<>();
-        for (Parent parent : parentList) {
-            ParentDto parentDto = getParentDto(parent);
-            parentDtoList.add(parentDto);
-        }
-        return parentDtoList;
-    }
-
     public ParentDto getParentDto(Parent parent) {
         return ParentDto.builder()
                 .id(parent.getId())
@@ -135,5 +112,35 @@ public class ParentService {
                 .password(parent.getPassword())
                 .roleDto(roleService.getRoleDto(parent.getRole()))
                 .build();
+    }
+
+    public ParentDto findById(UUID id) {
+        Parent parent = parentRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException(messageComponent.NOT_FOUND));
+        return getParentDto(parent);
+    }
+
+    public Set<Parent> findByIdIn(Set<UUID> listId) {
+        return parentRepository.findByIdIn(listId);
+    }
+
+    public ParentDto findByEmail(String email) {
+        Parent parent = parentRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException(messageComponent.NOT_FOUND));
+        return getParentDto(parent);
+    }
+    public List<ParentDto> findAllParentsDtoList(List<Parent> parentList) {
+        List<ParentDto> parentDtoList = new ArrayList<>();
+        for (Parent parent : parentList) {
+            ParentDto parentDto = getParentDto(parent);
+            parentDtoList.add(parentDto);
+        }
+        return parentDtoList;
+    }
+
+    public List<ParentDto> findAllParentsDto() {
+        return findAllParentsDtoList(parentRepository.findAll());
     }
 }

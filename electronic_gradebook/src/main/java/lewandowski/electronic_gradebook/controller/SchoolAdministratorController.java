@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -88,6 +89,12 @@ public class SchoolAdministratorController {
         return ResponseEntity
                 .created(location)
                 .body(pupilByEmail);
+    }
+
+    @GetMapping("/get/all/parent")
+    public ResponseEntity<?> getAll() {
+        List<ParentDto> parentDto = parentService.findAllParentsDto();
+        return ResponseEntity.ok(parentDto);
     }
 
     @GetMapping("/get/pupils/{id}")

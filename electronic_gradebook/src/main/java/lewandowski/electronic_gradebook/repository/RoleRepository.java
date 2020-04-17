@@ -3,6 +3,7 @@ package lewandowski.electronic_gradebook.repository;
 
 import lewandowski.electronic_gradebook.model.Role;
 import lewandowski.electronic_gradebook.model.enums.RoleName;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,5 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     List<Role> findAll();
 
     Set<Role> findByIdIn(Set<Long> id);
+
 }

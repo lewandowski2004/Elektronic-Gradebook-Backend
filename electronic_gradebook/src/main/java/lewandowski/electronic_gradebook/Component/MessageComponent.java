@@ -9,4 +9,5 @@ public class MessageComponent {
     public final String USERNAME_TAKEN = "Username is already taken!";
     public final String REGISTRATION_SUCCESS = "Registered successfully";
     public final String SCHOOL_ADDED = "School has been added, you can only edit it";
+    public final String NOT_FOUND = "Error: not found object";
 }

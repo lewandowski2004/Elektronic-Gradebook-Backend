@@ -16,4 +16,5 @@ public class ParentDto extends UserDto {
 
     private SchoolDto schoolDto;
 
+
 }
