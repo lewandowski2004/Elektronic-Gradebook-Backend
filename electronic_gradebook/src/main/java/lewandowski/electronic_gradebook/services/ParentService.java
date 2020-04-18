@@ -2,6 +2,7 @@ package lewandowski.electronic_gradebook.services;
 
 
 import lewandowski.electronic_gradebook.Component.MessageComponent;
+import lewandowski.electronic_gradebook.dto.EmployeeDto;
 import lewandowski.electronic_gradebook.dto.ParentDto;
 import lewandowski.electronic_gradebook.dto._toSave.ParentDtoToSave;
 import lewandowski.electronic_gradebook.model.Address;
@@ -131,6 +132,16 @@ public class ParentService {
                         new RuntimeException(messageComponent.NOT_FOUND));
         return getParentDto(parent);
     }
+
+    public List<Parent> findAllParents(List<ParentDto> parentsDtoList) {
+        List<Parent> parentsList = new ArrayList<>();
+        for (ParentDto parentDto : parentsDtoList) {
+            Parent parent = getParent(parentDto);
+            parentsList.add(parent);
+        }
+        return parentsList;
+    }
+
     public List<ParentDto> findAllParentsDtoList(List<Parent> parentList) {
         List<ParentDto> parentDtoList = new ArrayList<>();
         for (Parent parent : parentList) {

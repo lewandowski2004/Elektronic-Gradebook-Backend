@@ -142,16 +142,26 @@ public class EmployeeService {
         return getEmployeeDto(employee);
     }
 
-    public List<EmployeeDto> findAllEmployeesDtoList(List<Employee> employeeList) {
+    public List<Employee> findAllEmployees(List<EmployeeDto> employeesDtoList) {
+        List<Employee> employeeList = new ArrayList<>();
+        for (EmployeeDto employeeDto : employeesDtoList) {
+            Employee employee = getEmployee(employeeDto);
+            employeeList.add(employee);
+        }
+        return employeeList;
+    }
+
+    public List<EmployeeDto> findAllEmployeesDto(List<Employee> employeeList) {
         List<EmployeeDto> employeeDtoList = new ArrayList<>();
         for (Employee employee : employeeList) {
-            EmployeeDto pupilDto = getEmployeeDto(employee);
-            employeeDtoList.add(pupilDto);
+            EmployeeDto employeeDto = getEmployeeDto(employee);
+            employeeDtoList.add(employeeDto);
         }
         return employeeDtoList;
     }
 
     public List<EmployeeDto> getEmployeesDto() {
-        return findAllEmployeesDtoList(employeeRepository.findAll());
+        return findAllEmployeesDto(employeeRepository.findAll());
     }
 }
+

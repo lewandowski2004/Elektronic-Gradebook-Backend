@@ -4,11 +4,13 @@ package lewandowski.electronic_gradebook.services;
 import lewandowski.electronic_gradebook.Component.MessageComponent;
 import lewandowski.electronic_gradebook.dto.EmployeeDto;
 import lewandowski.electronic_gradebook.dto.MessageDto;
+import lewandowski.electronic_gradebook.dto.ParentDto;
 import lewandowski.electronic_gradebook.dto._toSave.EmployeeDtoToSave;
 import lewandowski.electronic_gradebook.dto._toSave.MessageDtoToSave;
 import lewandowski.electronic_gradebook.model.Address;
 import lewandowski.electronic_gradebook.model.Employee;
 import lewandowski.electronic_gradebook.model.Message;
+import lewandowski.electronic_gradebook.model.Parent;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
 import lewandowski.electronic_gradebook.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +97,10 @@ public class MessageService {
     }
 
     public List<MessageDto> getMessagesDtoBySenderEmail(String senderEmail) {
-        List<Message> allBySenderId = messageRepository.findBySenderEmail(senderEmail);
-        return findAllMessagesDtoList(allBySenderId);
+        return findAllMessagesDtoList(messageRepository.findBySenderEmail(senderEmail));
+    }
+
+    public List<MessageDto> getMessagesDtoByParents(ParentDto parentDto) {
+        return findAllMessagesDtoList(messageRepository.findAllByParents(parentService.getParent(parentDto)));
     }
 }
