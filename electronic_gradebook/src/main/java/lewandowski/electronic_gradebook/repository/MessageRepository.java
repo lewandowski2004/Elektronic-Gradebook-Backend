@@ -1,7 +1,9 @@
 package lewandowski.electronic_gradebook.repository;
 
 
+import lewandowski.electronic_gradebook.model.Employee;
 import lewandowski.electronic_gradebook.model.Message;
+import lewandowski.electronic_gradebook.model.Parent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,5 +17,7 @@ import java.util.UUID;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findBySenderEmail(String senderEmail);
+
+    List<Message> findAllByParents(Parent parent);
 
 }

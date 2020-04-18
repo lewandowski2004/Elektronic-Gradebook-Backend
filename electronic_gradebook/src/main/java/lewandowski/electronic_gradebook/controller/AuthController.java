@@ -16,9 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by rajeevkumarsingh on 02/08/17.
- */
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

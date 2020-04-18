@@ -1,12 +1,11 @@
 package lewandowski.electronic_gradebook.controller;
 
+import lewandowski.electronic_gradebook.dto.EmployeeDto;
 import lewandowski.electronic_gradebook.dto.MessageDto;
+import lewandowski.electronic_gradebook.dto.ParentDto;
 import lewandowski.electronic_gradebook.dto.UserDto;
 import lewandowski.electronic_gradebook.dto._toPresent.UserDtoToPresent;
 import lewandowski.electronic_gradebook.dto._toSave.MessageDtoToSave;
-import lewandowski.electronic_gradebook.dto._toSave.SchoolDtoToSave;
-import lewandowski.electronic_gradebook.model.Message;
-import lewandowski.electronic_gradebook.payload.ApiResponse;
 import lewandowski.electronic_gradebook.repository.EmployeeRepository;
 import lewandowski.electronic_gradebook.security.CurrentUser;
 import lewandowski.electronic_gradebook.security.UserPrincipal;
@@ -20,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -55,10 +55,19 @@ public class UserController {
     }
 
 
-    @GetMapping(path="/messages/sent")
+    @GetMapping(path="/get/messages/sent")
     public ResponseEntity<?> getMyMessagesSent(@CurrentUser UserPrincipal currentUser) {
 
         List<MessageDto> messages = messageService.getMessagesDtoBySenderEmail(currentUser.getEmail());
+
+        return ResponseEntity.ok(messages);
+    }
+
+    @GetMapping(path="/get/messages/received")
+    public ResponseEntity<?> getMyMessagesReceived(@CurrentUser UserPrincipal currentUser) {
+
+        ParentDto parentDto = parentService.findById(currentUser.getId());
+        List<MessageDto> messages = messageService.getMessagesDtoByParents(parentDto);
 
         return ResponseEntity.ok(messages);
     }
