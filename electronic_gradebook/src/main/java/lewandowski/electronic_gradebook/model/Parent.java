@@ -32,6 +32,4 @@ public class Parent extends User {
     private School school;
 
 
-    /*@OneToMany(mappedBy = "parent", fetch= FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private Set<Pupil> pupils;*/
 }

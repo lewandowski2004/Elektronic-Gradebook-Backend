@@ -5,9 +5,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,10 +34,15 @@ public class Pupil extends User {
     @JoinColumn(name="school_id")
     private School school;
 
+    @ManyToOne
+    @JoinColumn(name="class_id")
+    private Class schoolClass;
 
-    /*@ManyToOne
-    @JoinColumn(name = "parent_id")
-    private Parent parent;*/
+    /*@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "pupils_parents",
+            joinColumns = @JoinColumn(name = "pupil_id"),
+            inverseJoinColumns = @JoinColumn(name = "parent_id"))
+    private Set<Parent> parents;*/
 
 /*    @OneToMany(mappedBy="pupil", fetch=FetchType.EAGER)
     private Set<SubjectCard> subjectCards;*/

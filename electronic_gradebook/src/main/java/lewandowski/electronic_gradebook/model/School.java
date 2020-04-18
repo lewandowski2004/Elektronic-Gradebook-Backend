@@ -48,6 +48,9 @@ public class School {
     private KindSchool kindSchool;
 
     @OneToMany(mappedBy="school", fetch=FetchType.EAGER)
+    private Set<Class> schoolClasses;
+
+    @OneToMany(mappedBy="school", fetch=FetchType.EAGER)
     private Set<Employee> employees;
 
     @OneToMany(mappedBy="school", fetch=FetchType.EAGER)
